@@ -1,0 +1,44 @@
+<h2 class='page-header'>Dashboard</h2>
+<div *ngIf='user'>
+<div class="data-list">
+
+    <h3>Rides Near You</h3>
+    <div class="col-xs-3">
+      <div *ngFor="let docs of documents">
+      <ul class='list-group'>
+        <li class='list-group-item'>{{docs.firstname}} {{docs.lastname}}</li>
+        <li class='list-group-item'>Email: {{docs.email}}</li>
+        <li class='list-group-item'>Phone Number: {{docs.phonenumber}}</li>
+        <li class='list-group-item'>Address: {{docs.address}}</li>
+      </ul>
+    </div>
+    </div>
+    <div class = "col-xs-9">
+      <agm-map [latitude]="user.latitude" [longitude]="user.longitude" [zoom]="17">
+        <agm-marker [latitude]="user.latitude" [longitude]="user.longitude" ></agm-marker>
+        <agm-marker *ngFor="let docs of documents" [latitude]="docs.latitude" [longitude]="docs.longitude" (markerClick)="agm.lastOpen?.close(); agm.lastOpen = infoWindow">
+          <agm-info-window #infoWindow>
+		          <h2><strong>{{docs.firstname}} {{docs.lastname}}</strong></h2>
+	           </agm-info-window>
+           </agm-marker>
+      </agm-map>
+    </div>
+            <!--
+            [iconUrl]="'http://www.tourismstcatharines.ca/wp-content/themes/tourism/images/you-are-here-icon.png'" style="width:10px;height:15px;"
+
+            {{docs.firstname}} {{docs.lastname}}:<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;School: {{docs.school}}<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;Contact Information:<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email: {{docs.email}}<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Phone Number: {{docs.phonenumber}}<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;Address: {{docs.address}}<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;Distance: {{docs.distance}}<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;Role: {{docs.role}}<br />
+
+latitude={{docs.latitude}} longitude={{docs.longitude}}
+
+          -->
+        <br><br>
+
+</div>
+</div>
