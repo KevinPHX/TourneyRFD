@@ -16,7 +16,7 @@ mongoose.connect(config.database);
 
 
 nev.configure({
-    verificationURL: 'http://localhost:3000/users/email-verification/${URL}',
+    verificationURL: 'http://138.68.244.231:3000/users/email-verification/${URL}',
     persistentUserModel: User,
     tempUserCollection: 'temporary_users',
 
