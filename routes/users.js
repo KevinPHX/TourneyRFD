@@ -28,7 +28,7 @@ nev.configure({
         }
     },
     verifyMailOptions: {
-        from: 'Do Not Reply <kyin20_do_not_reply@brophybroncos.org>',
+        from: 'Do Not Reply <whoever20180101_do_not_reply@gmail.com>',
         subject: 'Please confirm account',
         html: 'Click the following link to confirm your account:</p><p>${URL}</p>',
         text: 'Please confirm your account by clicking the following link: ${URL}'
