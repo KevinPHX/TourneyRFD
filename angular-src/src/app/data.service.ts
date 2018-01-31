@@ -21,7 +21,7 @@ export class DataService implements OnInit {
       console.log(this.user)
       console.log(this.username);
       this.username;
-      return this.http.get('http://localhost:3000/users/nearby/' + this.username).map(res => res.json());
+      return this.http.get('http://138.68.244.231/users/nearby/' + this.username).map(res => res.json());
     })
   }
    ngOnInit() {

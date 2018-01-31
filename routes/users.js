@@ -16,19 +16,19 @@ mongoose.connect(config.database);
 
 
 nev.configure({
-    verificationURL: 'http://localhost:3000/users/email-verification/${URL}',
+    verificationURL: 'http://brophycarpool.com/users/email-verification/${URL}',
     persistentUserModel: User,
     tempUserCollection: 'temporary_users',
 
     transportOptions: {
         service: 'Gmail',
         auth: {
-            user: 'whoever20180101@gmail.com',
-            pass: 'aztucphx'
+            user: 'brophy.carpool.sign.up@gmail.com',
+            pass: 'Whoever2018'
         }
     },
     verifyMailOptions: {
-        from: 'Do Not Reply <whoever20180101_do_not_reply@gmail.com>',
+        from: 'Do Not Reply <brophy.carpool.sign.up_do_not_reply@gmail.com>',
         subject: 'Please confirm account',
         html: 'Click the following link to confirm your account:</p><p>${URL}</p>',
         text: 'Please confirm your account by clicking the following link: ${URL}'
