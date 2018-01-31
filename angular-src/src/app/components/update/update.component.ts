@@ -31,8 +31,16 @@ export class UpdateComponent implements OnInit {
   ngOnInit() {
     this.authService.getProfile().subscribe(profile => {
       this.user = profile.user;
-      this.id = profile.user._id;
-      console.log(this.id);
+      this.role = profile.user.role;
+      this.school = profile.user.school;
+      this.firstname = profile.user.firstname;
+      this.lastname = profile.user.lastname;
+      this.username = profile.user.username;
+      this.phonenumber = profile.user.phonenumber;
+      this.email = profile.user.email;
+      this.password = profile.user.password;
+      this.address = profile.user.address;
+      this.zipcode = profile.user.zipcode;
     },
     err => {
       console.log(err);

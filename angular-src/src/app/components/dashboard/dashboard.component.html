@@ -15,7 +15,11 @@
     </div>
     <div class = "col-xs-9">
       <agm-map [latitude]="user.latitude" [longitude]="user.longitude" [zoom]="17">
-        <agm-marker [latitude]="user.latitude" [longitude]="user.longitude" ></agm-marker>
+        <agm-marker [latitude]="user.latitude" [longitude]="user.longitude" >
+          <agm-info-window #infoWindow>
+		          <h2><strong>You Are Here</strong></h2>
+	        </agm-info-window>
+        </agm-marker>
         <agm-marker *ngFor="let docs of documents" [latitude]="docs.latitude" [longitude]="docs.longitude" (markerClick)="agm.lastOpen?.close(); agm.lastOpen = infoWindow">
           <agm-info-window #infoWindow>
 		          <h2><strong>{{docs.firstname}} {{docs.lastname}}</strong></h2>

@@ -22,7 +22,6 @@ data: Data[];
     this.dataService.retrieveProfile()
         .subscribe(data => {
           console.log(data)
-          console.log(data[0].latitude)
             this.documents = data;
         });
   }

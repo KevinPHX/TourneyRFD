@@ -16,7 +16,7 @@ mongoose.connect(config.database);
 
 
 nev.configure({
-    verificationURL: 'http://138.68.244.231:3000/users/email-verification/${URL}',
+    verificationURL: 'http://localhost:3000/users/email-verification/${URL}',
     persistentUserModel: User,
     tempUserCollection: 'temporary_users',
 
@@ -163,7 +163,7 @@ router.post('/register', (req, res, next) => {
                         request({
                         url: resultsurl,
                         json: true
-                        }, function (error, response, body) {
+                      }, function (error, response, body) {
                           if (!error && response.statusCode === 200) {
                                 lat = body.results[0].geometry.location.lat;
                                 lng = body.results[0].geometry.location.lng;
@@ -173,6 +173,7 @@ router.post('/register', (req, res, next) => {
                                   console.log(lat)
                                   console.log(lng)
                                   console.log(number);
+
                                   let newUser = new User({
                                     role:req.body.role,
                                     school:req.body.school,
@@ -189,15 +190,17 @@ router.post('/register', (req, res, next) => {
                                       geometry:{
                                         type:"Point",
                                         coordinates:number,
-                                      }
+                                      }//add way to identify whether email is brophy/xavier. Use this:http://www.java2s.com/Tutorials/Javascript/Node.js_Tutorial/0050__Node.js_String_Functions.htm
                                     });
-                                    User.addUser(newUser, (err, user) => {
+
+                                    User.updateUser(newUser, (err, user) => {
                                         if(err){
                                             res.json({success:false, msg:"Failed to register user"});
                                           } else {
                                             res.json({success: true, msg:"User registered"});
                                           }
-                                    });
+                                    })
+
                                   }
                                 })
                               })
