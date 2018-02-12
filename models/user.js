@@ -128,10 +128,10 @@ const UserSchema = mongoose.Schema({
   longitude:{
     type: Number
   },
-  geometry:GeoSchema
+  geometry:GeoSchema,
+  resetPasswordToken: String,
+  resetPasswordExpires: Date,
 });
-
-
 
 
 

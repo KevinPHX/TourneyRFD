@@ -32,6 +32,25 @@ authenticateUser(user){
   return this.http.post('http://138.68.244.231/users/authenticate', user, {headers:headers})
     .map(res => res.json());
 }
+forgotUser(user){
+  let headers = new Headers();
+  headers.append("Content-Type", 'application/json');
+  return this.http.post('http://138.68.244.231/users/forgot', user, {headers:headers})
+    .map(res => res.json());
+}
+
+resetUser(token, user){
+  let headers = new Headers();
+  headers.append("Content-Type", 'application/json');
+  return this.http.post('http://138.68.244.231/users/reset/'+token, user, {headers:headers})
+    .map(res => res.json());
+}
+
+findUsers(){
+  return this.http.get("http://138.68.244.231/users/contacts")
+    .map(res => res.json())
+}
+
 getProfile(){
   let headers = new Headers();
   this.loadToken();
@@ -43,19 +62,21 @@ getProfile(){
 
 
 storeUserData(token, user){
-  localStorage.setItem('id_token', token);
+  localStorage.setItem('token', token);
   localStorage.setItem('user', JSON.stringify(user));
   this.authToken= token;
   this.user=user;
 }
 
 loadToken(){
-  const token = localStorage.getItem('id_token');
+  const token = localStorage.getItem('token');
   this.authToken = token;
+  console.log(token)
 }
 
 loggedIn(){
-  return tokenNotExpired('id_token');
+  //console.log(tokenNotExpired());
+  return tokenNotExpired('token');
 }
 
 logout(){

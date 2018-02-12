@@ -5,11 +5,15 @@ const jwt = require('jsonwebtoken');
 const axios = require('axios');
 const config = require("../config/database")
 const User = require('../models/user');
+const bcrypt = require('bcryptjs');
 var mongojs = require('mongojs');
 var db = mongojs('mongodb://localhost:27017/meanauth', ['users']);
 var request = require("request");
 const mongoose = require('mongoose');
 var nev = require('email-verification')(mongoose);
+var nodemailer = require("nodemailer")
+var async = require("async")
+var crypto = require("crypto")
 
 mongoose.connect(config.database);
 
@@ -23,8 +27,8 @@ nev.configure({
     transportOptions: {
         service: 'Gmail',
         auth: {
-            user: 'brophy.carpool.sign.up@gmail.com',
-            pass: 'Whoever2018'
+            user: ' brophy.carpool.sign.up@gmail.com',
+            pass: 'Whatever2018'
         }
     },
     verifyMailOptions: {
@@ -97,7 +101,8 @@ router.post('/register', (req, res, next) => {
                           geometry:{
                               type:"Point",
                               coordinates:number,
-                            }
+                            },
+
                           });
 
                           nev.createTempUser(newUser, function(err, existingPersistentUser, newTempUser) {
@@ -328,5 +333,166 @@ nev.confirmTempUser(url, function(err, user) {
         console.log("User data expired")
 });
 })
+
+router.post('/forgot', function(req, res, next) {
+  async.waterfall([
+    function(done) {
+      crypto.randomBytes(20, function(err, buf) {
+        var token = buf.toString('hex');
+        done(err, token);
+      });
+    },
+    function(token, done) {
+      User.findOne({ email: req.body.email }, function(err, user) {
+        if (!user) {
+        //   console.log('error', 'No account with that email address exists.');
+        res.json('No account with that email address exists.');
+        //res.redirect('/forgot');
+        }
+console.log('step 1')
+        user.resetPasswordToken = token;
+        user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+
+        user.save(function(err) {
+          done(err, token, user);
+        });
+      });
+    },
+    function(token, user, done) {
+        console.log('step 2')
+
+
+      var smtpTrans = nodemailer.createTransport({
+         service: 'Gmail',
+         auth: {
+          user: 'carpoolpassreset@gmail.com',
+          pass: 'carpool2018'
+        }
+      });
+      var mailOptions = {
+
+        to: user.email,
+        from: 'carpoolpassreset@gmail.com',
+        subject: 'Brophy Carpool Password Reset',
+        text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+          'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+          'http://brophycarpool.com/reset/' + token + '\n\n' +
+          'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+
+      };
+      console.log('step 3')
+
+        smtpTrans.sendMail(mailOptions, function(err) {
+        res.json('An e-mail has been sent to ' + user.email + ' with further instructions.');
+        console.log('sent')
+        //res.redirect('/forgot');
+});
+}
+  ], function(err) {
+    console.log('this err' + ' ' + err)
+    res.send(err)
+    //res.redirect('/');
+  });
+});
+
+router.get('/forgot', function(req, res) {
+  res.render('forgot', {
+    User: req.user
+  });
+});
+
+router.get('/reset/:token', function(req, res) {
+  User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+      console.log(user);
+    if (!user) {
+      res.send('Password reset token is invalid or has expired.');
+      //res.redirect('/forgot');
+    }
+    res.render('reset', {
+     User: req.user
+    });
+  });
+});
+
+
+
+
+router.post('/reset/:token', function(req, res) {
+  async.waterfall([
+    function(done) {
+      User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user, next) {
+        if (!user) {
+          res.send('Password reset token is invalid or has expired.');
+          //res.redirect('back');
+        }
+
+        user.password = req.body.password
+
+        bcrypt.genSalt(10, (err, salt)=>{
+          bcrypt.hash(user.password, salt, (err, hash) => {
+            if(err) throw err;
+            user.password = hash;
+
+
+
+
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpires = undefined;
+        console.log('password' + user.password  + 'and the user is' + user)
+
+user.save(function(err) {
+  if (err) {
+      console.log('here')
+      //res.redirect('back');
+  } else {
+      console.log('here2')
+    // req.logIn(user, function(err) {
+     done(err, user);
+    // });
+
+  }
+        });
+      })
+    })
+
+
+
+      });
+    },
+
+
+
+
+
+    function(user, done) {
+        console.log('got this far 4')
+      var smtpTrans = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+          user: 'carpoolpassreset@gmail.com',
+          pass: 'carpool2018'
+        }
+      });
+      var mailOptions = {
+        to: user.email,
+        from: 'carpoolpassreset@gmail.com',
+        subject: 'Your password has been changed',
+        text: 'Hello,\n\n' +
+          ' - This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
+      };
+      smtpTrans.sendMail(mailOptions, function(err) {
+        res.json('Success! Your password has been changed.');
+        done(err);
+      });
+    }
+
+
+
+
+  ], function(err) {
+    console.log(err)
+    //res.redirect('/');
+  });
+});
 
 module.exports = router;

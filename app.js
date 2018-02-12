@@ -9,6 +9,7 @@ const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://localhost:27017/meanauth";
 var mongojs = require("mongojs");
 var db = mongojs('users',['users']);
+var fs = require('fs');
 //Connect To Database
 mongoose.createConnection(config.database);
 
@@ -27,7 +28,7 @@ const users=require('./routes/users');
 const user=require('./models/user');
 
 //Port Number
-const port = 3000;
+const port = 80;
 
 //CORS Middleware
 app.use(cors());
@@ -69,6 +70,9 @@ app.post("/dashboard",function (req, res) {
     }
   });
 });
+
+
+
 
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;

@@ -19,7 +19,6 @@ export class RegisterComponent implements OnInit {
   phonenumber: String;
   email: String;
   password: String;
-  confirm_password: String;
   address: String;
   zipcode: String;
   school: String;

@@ -19,6 +19,8 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import {AuthGuard} from './guards/auth.guard';
 import { DataService } from "./data.service";
 import { UpdateComponent } from './components/update/update.component';
+import { ForgotComponent } from './components/forgot/forgot.component';
+import { ResetComponent } from './components/reset/reset.component';
 
 const appRoutes: Routes = [
   {path:'', component: HomeComponent},
@@ -27,6 +29,8 @@ const appRoutes: Routes = [
   {path:'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
   {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]},
   {path:'update', component: UpdateComponent},
+  {path:'forgot', component: ForgotComponent},
+  {path:'reset/:token', component: ResetComponent},
 ]
 
 @NgModule({
@@ -39,6 +43,8 @@ const appRoutes: Routes = [
     DashboardComponent,
     ProfileComponent,
     UpdateComponent,
+    ForgotComponent,
+    ResetComponent,
   ],
   imports: [
     BrowserModule,

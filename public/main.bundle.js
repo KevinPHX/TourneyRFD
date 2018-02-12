@@ -101,12 +101,16 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__guards_auth_guard__ = __webpack_require__("../../../../../src/app/guards/auth.guard.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__data_service__ = __webpack_require__("../../../../../src/app/data.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_update_update_component__ = __webpack_require__("../../../../../src/app/components/update/update.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_forgot_forgot_component__ = __webpack_require__("../../../../../src/app/components/forgot/forgot.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_reset_reset_component__ = __webpack_require__("../../../../../src/app/components/reset/reset.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -133,6 +137,8 @@ var appRoutes = [
     { path: 'dashboard', component: __WEBPACK_IMPORTED_MODULE_11__components_dashboard_dashboard_component__["a" /* DashboardComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_16__guards_auth_guard__["a" /* AuthGuard */]] },
     { path: 'profile', component: __WEBPACK_IMPORTED_MODULE_12__components_profile_profile_component__["a" /* ProfileComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_16__guards_auth_guard__["a" /* AuthGuard */]] },
     { path: 'update', component: __WEBPACK_IMPORTED_MODULE_18__components_update_update_component__["a" /* UpdateComponent */] },
+    { path: 'forgot', component: __WEBPACK_IMPORTED_MODULE_19__components_forgot_forgot_component__["a" /* ForgotComponent */] },
+    { path: 'reset/:token', component: __WEBPACK_IMPORTED_MODULE_20__components_reset_reset_component__["a" /* ResetComponent */] },
 ];
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -148,6 +154,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_11__components_dashboard_dashboard_component__["a" /* DashboardComponent */],
                 __WEBPACK_IMPORTED_MODULE_12__components_profile_profile_component__["a" /* ProfileComponent */],
                 __WEBPACK_IMPORTED_MODULE_18__components_update_update_component__["a" /* UpdateComponent */],
+                __WEBPACK_IMPORTED_MODULE_19__components_forgot_forgot_component__["a" /* ForgotComponent */],
+                __WEBPACK_IMPORTED_MODULE_20__components_reset_reset_component__["a" /* ResetComponent */],
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -263,6 +271,107 @@ var DashboardComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "../../../../../src/app/components/forgot/forgot.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/forgot/forgot.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<h2 class='page-header'>Forgot</h2>\n<form (submit)='onForgotSubmit()'>\n  <div class='form-group'>\n    <label>Email</label>\n    <input type='text' class='form-control' [(ngModel)]='email' name='email'>\n  </div>\n  <input type='submit' class='btn btn-primary' value='Submit'>\n</form>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/forgot/forgot.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ForgotComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__("../../../../../src/app/services/auth.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__("../../../../angular2-flash-messages/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_validate_service__ = __webpack_require__("../../../../../src/app/services/validate.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var ForgotComponent = /** @class */ (function () {
+    function ForgotComponent(authService, validateService, router, flashMessage) {
+        this.authService = authService;
+        this.validateService = validateService;
+        this.router = router;
+        this.flashMessage = flashMessage;
+    }
+    ForgotComponent.prototype.ngOnInit = function () {
+    };
+    ForgotComponent.prototype.onForgotSubmit = function () {
+        var _this = this;
+        var user = {
+            email: this.email
+        };
+        if (!this.validateService.validateEmail(user.email)) {
+            this.flashMessage.show("Please use a valid email", { cssClass: 'alert-danger', timeout: 3000 });
+            return false;
+        }
+        this.authService.forgotUser(user).subscribe(function (data) {
+            if (data) {
+                _this.flashMessage.show("An email has been sent to your account", {
+                    cssClass: "alert-success",
+                    timeout: 5000
+                });
+                _this.router.navigate(['/login']);
+            }
+            else {
+                _this.flashMessage.show(data.msg, {
+                    cssClass: "alert-danger",
+                    timeout: 5000
+                });
+                //this.router.navigate(['/forgot'])
+            }
+        });
+    };
+    ForgotComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'app-forgot',
+            template: __webpack_require__("../../../../../src/app/components/forgot/forgot.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/forgot/forgot.component.css")]
+        }),
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__services_validate_service__["a" /* ValidateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_validate_service__["a" /* ValidateService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === "function" && _d || Object])
+    ], ForgotComponent);
+    return ForgotComponent;
+    var _a, _b, _c, _d;
+}());
+
+//# sourceMappingURL=/Users/kevinyin/Documents/Programming/meanauthapp/angular-src/src/forgot.component.js.map
+
+/***/ }),
+
 /***/ "../../../../../src/app/components/home/home.component.css":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -345,7 +454,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class='page-header'>Login</h2>\n<form (submit)='onLoginSubmit()'>\n  <div class='form-group'>\n    <label>Username</label>\n    <input type='text' class='form-control' [(ngModel)]='username' name='username'>\n  </div>\n  <div class='form-group'>\n    <label>Password</label>\n    <input type='password' class='form-control' [(ngModel)]='password' name='password'>\n  </div>\n  <input type='submit' class='btn btn-primary' value='Login'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;First Time?&nbsp;<a class='' [routerLink]=\"['/register']\">Click Here</a>\n</form>\n"
+module.exports = "<h2 class='page-header'>Login</h2>\n<form (submit)='onLoginSubmit()'>\n  <div class='form-group'>\n    <label>Username</label>\n    <input type='text' class='form-control' [(ngModel)]='username' name='username'>\n  </div>\n  <div class='form-group'>\n    <label>Password</label>\n    <input type='password' class='form-control' [(ngModel)]='password' name='password'>\n  </div>\n  First Time?&nbsp;<a class='' [routerLink]=\"['/register']\">Click Here</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class='' [routerLink]=\"['/forgot']\">Forgot Password?</a>\n  <br/>\n  <br/>\n  <input type='submit' class='btn btn-primary' value='Login'>\n\n</form>\n"
 
 /***/ }),
 
@@ -687,6 +796,128 @@ var RegisterComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "../../../../../src/app/components/reset/reset.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/reset/reset.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<h2 class='page-header'>Reset</h2>\n<form (submit)='onResetSubmit()'>\n  <div class='form-group'>\n    <label>Password</label>\n    <input type='text' class='form-control' [(ngModel)]='password' name='password'>\n  </div>\n  <input type='submit' class='btn btn-primary' value='Submit'>\n</form>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/reset/reset.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ResetComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__("../../../../../src/app/services/auth.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__("../../../../angular2-flash-messages/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_validate_service__ = __webpack_require__("../../../../../src/app/services/validate.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var ResetComponent = /** @class */ (function () {
+    function ResetComponent(authService, validateService, router, flashMessage, http) {
+        this.authService = authService;
+        this.validateService = validateService;
+        this.router = router;
+        this.flashMessage = flashMessage;
+        this.http = http;
+    }
+    ResetComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.href = this.router.url;
+        console.log(this.href);
+        this.token = this.href.substring(7, 47);
+        console.log(this.token);
+        this.authService.findUsers().subscribe(function (data) {
+            for (var i = 0; i < data.length; i++) {
+                if (_this.token == data[i].resetPasswordToken) {
+                    console.log(data[i]);
+                }
+            }
+        });
+    };
+    ResetComponent.prototype.onResetSubmit = function () {
+        var _this = this;
+        this.authService.findUsers().subscribe(function (data) {
+            for (var i = 0; i < data.length; i++) {
+                if (_this.token == data[i].resetPasswordToken) {
+                    var user = {
+                        password: _this.password
+                    };
+                    _this.href = _this.router.url;
+                    console.log(_this.href);
+                    _this.token = _this.href.substring(7, 47);
+                    console.log(_this.token);
+                    _this.authService.resetUser(_this.token, user).subscribe(function (data) {
+                        if (data) {
+                            _this.flashMessage.show("Your password has been changed", {
+                                cssClass: "alert-success",
+                                timeout: 5000
+                            });
+                            _this.router.navigate(['/login']);
+                        }
+                        else {
+                            _this.flashMessage.show("Failure to change password", {
+                                cssClass: "alert-success",
+                                timeout: 5000
+                            });
+                            _this.router.navigate(['/reset/' + _this.token]);
+                        }
+                    });
+                }
+            }
+        });
+    };
+    ResetComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'app-reset',
+            template: __webpack_require__("../../../../../src/app/components/reset/reset.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/reset/reset.component.css")],
+        }),
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__services_validate_service__["a" /* ValidateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_validate_service__["a" /* ValidateService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__angular_http__["Http"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_http__["Http"]) === "function" && _e || Object])
+    ], ResetComponent);
+    return ResetComponent;
+    var _a, _b, _c, _d, _e;
+}());
+
+//# sourceMappingURL=/Users/kevinyin/Documents/Programming/meanauthapp/angular-src/src/reset.component.js.map
+
+/***/ }),
+
 /***/ "../../../../../src/app/components/update/update.component.css":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -873,7 +1104,7 @@ var DataService = /** @class */ (function () {
             console.log(_this.user);
             console.log(_this.username);
             _this.username;
-            return _this.http.get('http://138.68.244.231/users/nearby/' + _this.username).map(function (res) { return res.json(); });
+            return _this.http.get('http://localhost:3000/users/nearby/' + _this.username).map(function (res) { return res.json(); });
         });
     };
     DataService.prototype.ngOnInit = function () {
@@ -971,23 +1202,39 @@ var AuthService = /** @class */ (function () {
     AuthService.prototype.registerUser = function (user) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append("Content-Type", 'application/json');
-        return this.http.post('http://138.68.244.231/users/register', user, { headers: headers })
+        return this.http.post('http://localhost:3000/users/register', user, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.updateUser = function (user) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append("Content-Type", 'application/json');
-        return this.http.post('http://138.68.244.231/users/update', user, { headers: headers })
+        return this.http.post('http://localhost:3000/users/update', user, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.deleteUser = function (id) {
-        return this.http.delete('http://138.68.244.231/users/delete/' + id)
+        return this.http.delete('http://localhost:3000/users/delete/' + id)
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.authenticateUser = function (user) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append("Content-Type", 'application/json');
-        return this.http.post('http://138.68.244.231/users/authenticate', user, { headers: headers })
+        return this.http.post('http://localhost:3000/users/authenticate', user, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    AuthService.prototype.forgotUser = function (user) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        headers.append("Content-Type", 'application/json');
+        return this.http.post('http://localhost:3000/users/forgot', user, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    AuthService.prototype.resetUser = function (token, user) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        headers.append("Content-Type", 'application/json');
+        return this.http.post('http://localhost:3000/users/reset/' + token, user, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    AuthService.prototype.findUsers = function () {
+        return this.http.get("http://localhost:3000/users/contacts")
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.getProfile = function () {
@@ -995,21 +1242,23 @@ var AuthService = /** @class */ (function () {
         this.loadToken();
         headers.append("Authorization", this.authToken);
         headers.append("Content-Type", 'application/json');
-        return this.http.get('http://138.68.244.231/users/profile', { headers: headers })
+        return this.http.get('http://localhost:3000/users/profile', { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.storeUserData = function (token, user) {
-        localStorage.setItem('id_token', token);
+        localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
         this.authToken = token;
         this.user = user;
     };
     AuthService.prototype.loadToken = function () {
-        var token = localStorage.getItem('id_token');
+        var token = localStorage.getItem('token');
         this.authToken = token;
+        console.log(token);
     };
     AuthService.prototype.loggedIn = function () {
-        return Object(__WEBPACK_IMPORTED_MODULE_3_angular2_jwt__["tokenNotExpired"])('id_token');
+        //console.log(tokenNotExpired());
+        return Object(__WEBPACK_IMPORTED_MODULE_3_angular2_jwt__["tokenNotExpired"])('token');
     };
     AuthService.prototype.logout = function () {
         this.authToken = null;
