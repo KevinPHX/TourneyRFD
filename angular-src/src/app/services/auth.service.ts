@@ -13,41 +13,41 @@ export class AuthService {
   registerUser(user){
     let headers = new Headers();
     headers.append("Content-Type", 'application/json');
-    return this.http.post('http://138.68.244.231/users/register', user, {headers:headers})
+    return this.http.post('http://localhost:3000/users/register', user, {headers:headers})
       .map(res => res.json());
   }
   updateUser(user){
     let headers = new Headers();
     headers.append("Content-Type", 'application/json');
-    return this.http.post('http://138.68.244.231/users/update', user, {headers:headers})
+    return this.http.post('http://localhost:3000/users/update', user, {headers:headers})
       .map(res => res.json());
   }
   deleteUser(id){
-      return this.http.delete('http://138.68.244.231/users/delete/'+id)
+      return this.http.delete('http://localhost:3000/users/delete/'+id)
           .map(res => res.json());
   }
 authenticateUser(user){
   let headers = new Headers();
   headers.append("Content-Type", 'application/json');
-  return this.http.post('http://138.68.244.231/users/authenticate', user, {headers:headers})
+  return this.http.post('http://localhost:3000/users/authenticate', user, {headers:headers})
     .map(res => res.json());
 }
 forgotUser(user){
   let headers = new Headers();
   headers.append("Content-Type", 'application/json');
-  return this.http.post('http://138.68.244.231/users/forgot', user, {headers:headers})
+  return this.http.post('http://localhost:3000/users/forgot', user, {headers:headers})
     .map(res => res.json());
 }
 
 resetUser(token, user){
   let headers = new Headers();
   headers.append("Content-Type", 'application/json');
-  return this.http.post('http://138.68.244.231/users/reset/'+token, user, {headers:headers})
+  return this.http.post('http://localhost:3000/users/reset/'+token, user, {headers:headers})
     .map(res => res.json());
 }
 
 findUsers(){
-  return this.http.get("http://138.68.244.231/users/contacts")
+  return this.http.get("http://localhost:3000/users/contacts")
     .map(res => res.json())
 }
 
@@ -56,7 +56,7 @@ getProfile(){
   this.loadToken();
   headers.append("Authorization", this.authToken)
   headers.append("Content-Type", 'application/json');
-  return this.http.get('http://138.68.244.231/users/profile', {headers:headers})
+  return this.http.get('http://localhost:3000/users/profile', {headers:headers})
     .map(res => res.json());
 }
 
