@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { ValidateService } from '../../services/validate.service';
+import {Data} from "../../Data";
 
 @Component({
   selector: 'app-forgot',
@@ -11,6 +12,7 @@ import { ValidateService } from '../../services/validate.service';
 })
 export class ForgotComponent implements OnInit {
 email:String;
+Data:Data[];
   constructor(
   private authService:AuthService,
   private validateService:ValidateService,
@@ -30,22 +32,28 @@ email:String;
       return false;
     }
 
+    this.authService.findUsers().subscribe(Data => {
+      for (var i =0; i < Data.length; i++){
+        if (user.email !== Data[i].email){
+          this.flashMessage.show("Please enter the email you registered with", {cssClass:'alert-danger', timeout:3000});
+          return false;
+        } else {
+          this.authService.forgotUser(user).subscribe(data => {
+            if(data){
+              this.flashMessage.show("An email has been sent to your account",{
+                cssClass: "alert-success",
+                timeout:5000
+              });
+              this.router.navigate(['/login'])
+            }
 
-    this.authService.forgotUser(user).subscribe(data => {
-      if(data){
-        this.flashMessage.show("An email has been sent to your account",{
-          cssClass: "alert-success",
-          timeout:5000
-        });
-        this.router.navigate(['/login'])
-      } else {
-        this.flashMessage.show(data.msg,{
-          cssClass: "alert-danger",
-          timeout:5000
-        });
-        //this.router.navigate(['/forgot'])
+          });
+        }
       }
-    });
+  })
+
+
+
 
 
 

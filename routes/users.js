@@ -346,7 +346,7 @@ router.post('/forgot', function(req, res, next) {
       User.findOne({ email: req.body.email }, function(err, user) {
         if (!user) {
         //   console.log('error', 'No account with that email address exists.');
-        res.json('No account with that email address exists.');
+        return res.json({success: false});
         //res.redirect('/forgot');
         }
 console.log('step 1')

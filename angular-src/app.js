@@ -27,7 +27,7 @@ const users=require('./routes/users');
 const user=require('./models/user');
 
 //Port Number
-const port = 3000;
+const port = 80;
 
 //CORS Middleware
 app.use(cors());
@@ -50,9 +50,9 @@ app.get('/', (req,res) => {
   res.send('Invalid Endpoint')
 });
 
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, 'public/index.html'))
-// });
+ app.get("*", (req, res) => {
+   res.sendFile(path.join(__dirname, 'public/index.html'))
+ });
 
 //Start Server
 app.listen(port, () => {
