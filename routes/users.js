@@ -166,7 +166,7 @@ router.post('/addtournament', (req, res, next) => {
       axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
         params: {
             address: Address,
-            key: "AIzaSyAm1tkJQOZCC33-0w_PkblDN_3Yykqkng4"
+            key: "insert geocode api key"
         }
       })
       .then(function(response){
@@ -226,7 +226,7 @@ router.post('/edittournament/:id', (req, res, next) => {
       axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
         params: {
             address: Address,
-            key: "AIzaSyAm1tkJQOZCC33-0w_PkblDN_3Yykqkng4"
+            key: "insert geocode api key"
         }
       })
       .then(function(response){
@@ -275,45 +275,6 @@ router.post('/deletetournament/:id', (req, res, next) => {
       }
   });
 })
-// router.post('/addcoordinates/:id', (req, res, next) => {
-//       Address();
-//       function Address(){
-//         Tournament.findById(req.params.id, function(err, tournament){
-//
-//           Address = tournament.address;
-//           console.log(Address);
-//           axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-//             params: {
-//                 address: Address,
-//                 key: "AIzaSyAm1tkJQOZCC33-0w_PkblDN_3Yykqkng4"
-//             }
-//           })
-//           .then(function(response){
-//             resultsurl = response.request.res.responseUrl;
-//             console.log(resultsurl)
-//             request({
-//               url: resultsurl,
-//               json: true
-//             }, function (error, response, body) {
-//               if (!error && response.statusCode === 200) {
-//                 lat = body.results[0].geometry.location.lat;
-//                 lng = body.results[0].geometry.location.lng;
-//                 number = [];
-//                 number[0] = lng;
-//                 number[1] = lat;
-//                   console.log(lat)
-//                   console.log(lng)
-//                   console.log(number);
-//                   db.collection("tournaments").update({_id:ObjectID(req.params.id)}, {$set: {longitude:lng, latitude:lat}})
-//                 }
-//                 })
-//               })
-//               .catch(function(error){
-//                 console.log(error);
-//               })
-//             })
-//           }
-// })
 
 
 router.post('/addreview/:tournamentid/:id', (req, res, next) => {
