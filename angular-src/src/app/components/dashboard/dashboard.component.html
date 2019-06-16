@@ -1,47 +1,32 @@
 <h2 class='page-header'>Dashboard</h2>
 <div *ngIf='user'>
 <div class="data-list">
+  <!-- <h3>Add a Tournament</h3>
+    <a class='btn btn-primary' [routerLink]="['/addtournament']" value = "addTournament" style = "width = 100%" >Add Tournament</a> -->
 
-    <h3>Rides Near You</h3>
-    <div class="col-xs-3">
+    <h3>My Reviews</h3>
       <div *ngFor="let docs of documents">
-      <ul class='list-group'>
-        <li class='list-group-item'>{{docs.firstname}} {{docs.lastname}}</li>
-        <li class='list-group-item'>Email: {{docs.email}}</li>
-        <li class='list-group-item'>Phone Number: {{docs.phonenumber}}</li>
-        <li class='list-group-item'>Address: {{docs.address}}</li>
-      </ul>
-    </div>
-    </div>
-    <div class = "col-xs-9">
-      <agm-map [latitude]="user.latitude" [longitude]="user.longitude" [zoom]="17">
-        <agm-marker [latitude]="user.latitude" [longitude]="user.longitude" >
-          <agm-info-window #infoWindow>
-		          <h2><strong>You Are Here</strong></h2>
-	        </agm-info-window>
-        </agm-marker>
-        <agm-marker *ngFor="let docs of documents" [latitude]="docs.latitude" [longitude]="docs.longitude" (markerClick)="agm.lastOpen?.close(); agm.lastOpen = infoWindow">
-          <agm-info-window #infoWindow>
-		          <h2><strong>{{docs.firstname}} {{docs.lastname}}</strong></h2>
-	           </agm-info-window>
-           </agm-marker>
-      </agm-map>
-    </div>
-            <!--
-            [iconUrl]="'http://www.tourismstcatharines.ca/wp-content/themes/tourism/images/you-are-here-icon.png'" style="width:10px;height:15px;"
+        <div class ="col-xs-12">
+          <br>
+        <h4>{{docs.tournamentname}}</h4>
+        </div>
 
-            {{docs.firstname}} {{docs.lastname}}:<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;School: {{docs.school}}<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;Contact Information:<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email: {{docs.email}}<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Phone Number: {{docs.phonenumber}}<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;Address: {{docs.address}}<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;Distance: {{docs.distance}}<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;Role: {{docs.role}}<br />
+        <div class = "col-xs-2">
+          <b>Judging Pool: </b><bar-rating [rate]=docs.judgingpool [max]="5" [readOnly]='true'></bar-rating>
+          <b>Accomodations: </b><bar-rating [rate]=docs.accomodations [max]="5" [readOnly]='true'></bar-rating>
+          <b>Location: </b><bar-rating [rate]=docs.location [max]="5" [readOnly]='true'></bar-rating>
+          <b>Scheduling: </b><bar-rating [rate]=docs.scheduling [max]="5" [readOnly]='true'></bar-rating>
+        </div>
+        <div class = "col-xs-10">
+          <h4><b>{{docs.firstname}} {{docs.lastname}}</b></h4> <h5>{{docs.role}} | {{docs.affiliation}}</h5>
+          <b>{{docs.date}}</b> <br><br>
+          {{docs.content}}<br><br>
+          <p *ngIf="docs.rating > 0"> {{docs.rating}} people found this review helpful</p>
+          <a class='btn btn-primary' [routerLink]="['/editreview/', docs._id]" value = "editReview" >Edit Review</a> &nbsp;&nbsp;&nbsp; <a class='link' [routerLink]="['/review/', docs._id]" value = "review" >View Replies</a>
 
-latitude={{docs.latitude}} longitude={{docs.longitude}}
+        </div>
 
-          -->
+    </div>
         <br><br>
 
 </div>

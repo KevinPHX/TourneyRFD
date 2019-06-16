@@ -3,79 +3,8 @@ const bcrypt = require('bcryptjs');
 const config = require('../config/database');
 const axios = require('axios');
 var mongojs = require('mongojs');
-var db = mongojs('mongodb://localhost:27017/meanauth', ['users']);
+var db = mongojs('mongodb://localhost:27017/tourneyreview', ['users']);
 var request = require("request");
-
-
-
-//Address();
-
-
-
-function Address(){
-  db.users.find().toArray(function(err, users){
-    if (err) {
-      console.log(err);
-    }
-    else {
-      users.forEach(function(users){
-        console.log(users.address)
-
-        Address = users.address;
-        axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-          params: {
-            address: Address,
-            key: "AIzaSyAm1tkJQOZCC33-0w_PkblDN_3Yykqkng4"
-          }
-        })
-        .then(function(response){
-        // console.log(response);
-      //https://maps.googleapis.com/maps/api/geocode/json?address=3819+E+Quail+Ave&key=AIzaSyAm1tkJQOZCC33-0w_PkblDN_3Yykqkng4
-         resultsurl = response.request.res.responseUrl;
-         console.log(resultsurl)
-          request({
-            url: resultsurl,
-            json: true
-        }, function (error, response, body) {
-
-            if (!error && response.statusCode === 200) {
-
-              lat = body.results[0].geometry.location.lat;
-              lat;
-              lng = body.results[0].geometry.location.lng;
-              lng;
-              number = [];
-              number[0] = lat;
-              number[1] = lng;
-                console.log(lat)
-                console.log(lng)
-                console.log(number);
-            }
-
-
-        })
-
-         })
-        .catch(function(error){
-          console.log(error);
-        })
-      })
-    }
-  })
-}
-
-const GeoSchema = mongoose.Schema({
-    type:{
-      type:String,
-      default:"Point"
-    },
-    coordinates:{
-        type:[Number],
-        index:'2dsphere'
-    }
-})
-
-
 
 
 
@@ -86,7 +15,7 @@ const UserSchema = mongoose.Schema({
     type:String,
     required: true
   },
-  school: {
+  affiliation: {
     type:String,
     required: true
   },
@@ -95,10 +24,6 @@ const UserSchema = mongoose.Schema({
     required: true
   },
   lastname: {
-    type:String,
-    required: true
-  },
-  phonenumber: {
     type:String,
     required: true
   },
@@ -114,21 +39,6 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  address: {
-    type:String,
-    required: true
-  },
-  zipcode: {
-    type:String,
-    required: true
-  },
-  latitude:{
-    type: Number
-  },
-  longitude:{
-    type: Number
-  },
-  geometry:GeoSchema,
   resetPasswordToken: String,
   resetPasswordExpires: Date,
 });
@@ -175,6 +85,7 @@ module.exports.hashPassword = function(newUser, callback){
     bcrypt.hash(newUser.password, salt, (err, hash) => {
       if(err) throw err;
       newUser.password = hash;
+      return callback;
       //newUser.save(callback);
     })
   })

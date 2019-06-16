@@ -21,7 +21,13 @@ Data:Data[];
 ) { }
 
   ngOnInit() {
-  }
+    this.authService.findUsers().subscribe(Data => {
+      for (var i =0; i < Data.length; i++){
+        //if (user.email !== Data[i].email){
+        console.log(Data[i].email)
+        }
+  })
+}
 
   onForgotSubmit(){
     const user = {
@@ -34,10 +40,7 @@ Data:Data[];
 
     this.authService.findUsers().subscribe(Data => {
       for (var i =0; i < Data.length; i++){
-        if (user.email !== Data[i].email){
-          this.flashMessage.show("Please enter the email you registered with", {cssClass:'alert-danger', timeout:3000});
-          return false;
-        } else {
+        if (user.email == Data[i].email){
           this.authService.forgotUser(user).subscribe(data => {
             if(data){
               this.flashMessage.show("An email has been sent to your account",{
@@ -48,6 +51,10 @@ Data:Data[];
             }
 
           });
+
+        } else {
+          this.flashMessage.show("Please enter the email you registered with", {cssClass:'alert-danger', timeout:3000});
+          return false;
         }
       }
   })

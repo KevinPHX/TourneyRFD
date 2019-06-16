@@ -3,7 +3,7 @@ import { ValidateService } from '../../services/validate.service';
 import { AuthService } from '../../services/auth.service';
 import { FlashMessagesService } from "angular2-flash-messages"
 import { Router } from '@angular/router';
-
+import {ModalModule} from "ngx-modal";
 
 
 @Component({
@@ -16,13 +16,11 @@ export class RegisterComponent implements OnInit {
   firstname: String;
   lastname: String;
   username: String;
-  phonenumber: String;
   email: String;
   password: String;
-  address: String;
-  zipcode: String;
-  school: String;
-  constructor(private validateService: ValidateService, private flashMessages:FlashMessagesService, private authService:AuthService, private router:Router) { }
+  affiliation: String;
+  agreement: Any;
+  constructor(private validateService: ValidateService, private flashMessages:FlashMessagesService, private authService:AuthService, private router:Router, private modal:ModalModule) { }
 
   ngOnInit() {
   }
@@ -31,14 +29,12 @@ onRegisterSubmit(){
     role: this.role,
     firstname: this.firstname,
     lastname: this.lastname,
-    phonenumber: this.phonenumber,
     email: this.email,
     username: this.username,
     password: this.password,
-    address: this.address,
-    zipcode: this.zipcode,
-    school: this.school,
+    affiliation: this.affiliation,
     }
+
     if(!this.validateService.validateRegister(user)){
       this.flashMessages.show("Please fill in all fields", {cssClass:'alert-danger', timeout:3000});
       return false;
@@ -47,10 +43,14 @@ onRegisterSubmit(){
       this.flashMessages.show("Please use a valid email", {cssClass:'alert-danger', timeout:3000});
       return false;
     }
+    if(!this.agreement.checked) {
+      this.flashMessages.show("Please indicate that you accept the Terms and Conditions", {cssClass:'alert-danger', timeout:3000});
+      return false;
+    }
 
-      this.flashMessages.show("Check your email to verify account", {cssClass:'alert-success', timeout:3000});
-      this.router.navigate(['/login'])
 
+      // this.flashMessages.show("Check your email to verify account", {cssClass:'alert-success', timeout:10000});
+      // this.router.navigate(['/login'])
 
 
     //Register User
@@ -63,5 +63,15 @@ onRegisterSubmit(){
         this.router.navigate(['/register'])
       }
     });
+
+    document.getElementById("openModalButton").click();
+
+
+
+
+
+
+
+
   }
 }

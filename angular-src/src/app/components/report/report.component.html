@@ -1,0 +1,31 @@
+<div *ngFor="let docs of documents">
+  <h2 class = "page-header">Review</h2>
+  <div class ="col-xs-12">
+    <br>
+  <h4>{{docs.tournamentname}}</h4>
+  </div>
+  <div class = "col-xs-2">
+    <b>Judging Pool: </b><bar-rating [rate]=docs.judgingpool [max]="5" [readOnly]='true'></bar-rating>
+    <b>Accomodations: </b><bar-rating [rate]=docs.accomodations [max]="5" [readOnly]='true'></bar-rating>
+    <b>Location: </b><bar-rating [rate]=docs.location [max]="5" [readOnly]='true'></bar-rating>
+    <b>Scheduling: </b><bar-rating [rate]=docs.scheduling [max]="5" [readOnly]='true'></bar-rating>
+  </div>
+  <div class = "col-xs-10">
+    <h4><b>{{docs.firstname}} {{docs.lastname}}</b></h4> <h5>{{docs.role}} | {{docs.affiliation}}</h5>
+    <b>{{docs.date}}</b> <br><br>
+    {{docs.content}}<br><br>
+    <p *ngIf="docs.rating > 0"> {{docs.rating}} people found this review helpful</p>
+  </div>
+</div>
+<form (submit)='onReportSubmit()'>
+
+<div class='form-group'>
+  <div class ="col-xs-12">
+    <br><h4>Reason for Reporting this Review</h4>
+  </div>
+
+  <textarea name="reportcontent" [(ngModel)]='reportcontent' rows="4" cols="80" class="form-control"></textarea>
+  <!-- <input type='text' [(ngModel)]='content' name='content' class="form-control"> -->
+</div>
+<input type='submit' class = 'btn btn-primary' value='Submit'>
+</form>

@@ -1,0 +1,87 @@
+
+      <div *ngFor="let docs of documents">
+      <h2 class='page-header'>{{docs.name}}</h2>
+      <br>
+      <div class="col-xs-3">
+      <h3>Overall:</h3> <bar-rating [rate]=docs.overall [max]="5" [readOnly]='true'></bar-rating>
+      <h4>Judging Pool:</h4> <bar-rating [rate]=docs.judgingpool [max]="5" [readOnly]='true'></bar-rating>
+      <h4>Accomodations:</h4> <bar-rating [rate]=docs.accomodations [max]="5" [readOnly]='true'></bar-rating>
+      <h4>Location:</h4> <bar-rating [rate]=docs.location [max]="5" [readOnly]='true'></bar-rating>
+      <h4>Scheduling:</h4> <bar-rating [rate]=docs.scheduling [max]="5" [readOnly]='true'></bar-rating><br>
+      <a class='link' [routerLink]="['/edittournament/', docs._id]" value = "Edit">Edit Tournament Info</a><br><br>
+      </div>
+      <div class ="col-xs-3">
+      <a class='btn btn-primary' [routerLink]="['/image/', docs._id]" value = "Image" style="width:100%;font-size:24px;">Image Gallery</a>
+      </div>
+      <div class ="col-xs-3">
+      <a class='btn btn-primary'   [routerLink]="['/map/', docs._id]" value = "Map" style="width:100%;font-size:24px">Find on Map</a>
+      <!-- (click)="onLinkClick(docs._id)" -->
+      </div>
+      <div class ="col-xs-3">
+      <a class='btn btn-primary' [routerLink]="['/addreview/', docs._id]" value = "Review" style="width:100%;font-size:24px">Add a Review</a>
+      </div>
+      <div class="col-xs-3">
+        <h3>Tournament Dates</h3>
+        <b>Start Date: {{docs.startdate}}</b> <br>
+        <b>End Date: {{docs.enddate}}</b>
+      </div>
+      <div class="col-xs-3">
+        <h3>Tournament Address</h3>
+        <b>{{docs.address}}</b>
+      </div>
+      <div class="col-xs-3">
+        <h3>Debate Screws</h3>
+        <b>{{docs.screws}}</b><br><br>
+      </div>
+      <div class="col-xs-3">
+        <h3>Events Without Bids</h3>
+        <div *ngFor="let eventswithoutbids of docs.eventswithoutbids">
+          <b>{{eventswithoutbids.value}}</b>
+        </div>
+        <br><br><br>
+      </div>
+      <div class="col-xs-6">
+        <h3>Tournament Website</h3>
+        <a href={{docs.link}}><h5><b>{{docs.link}}</b></h5></a>
+      </div>
+      <div class="col-xs-3">
+        <h3>Events With Bids</h3>
+        <div *ngFor="let eventswithbids of docs.eventswithbids">
+           <b>{{eventswithbids.value}}</b>
+           <br>
+        </div>
+      </div>
+      <div class="col-xs-3">
+        <h3>Bid Rounds</h3>
+        <div *ngFor="let bidround of docs.bidrounds">
+          <b>{{bidround.value}}</b>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+    <div class="col-xs-12">
+    <h3 class='page-header'>Reviews</h3><br><br>
+    <div *ngFor="let review of reviews">
+      <div class = "col-xs-3">
+        <b>Judging Pool: </b><bar-rating [rate]=review.judgingpool [max]="5" [readOnly]='true'></bar-rating>
+        <b>Accomodations: </b><bar-rating [rate]=review.accomodations [max]="5" [readOnly]='true'></bar-rating>
+        <b>Location: </b><bar-rating [rate]=review.location [max]="5" [readOnly]='true'></bar-rating>
+        <b>Scheduling: </b><bar-rating [rate]=review.scheduling [max]="5" [readOnly]='true'></bar-rating>
+      </div>
+      <div class = "col-xs-9">
+        <h4><b>{{review.firstname}} {{review.lastname}}</b></h4> <h5>{{review.role}} | {{review.affiliation}}</h5>
+        <b>{{review.date}}</b> <br><br>
+        {{review.content}}<br><br>
+        <p *ngIf="review.rating > 0"> <b>{{review.rating}} people found this review helpful</b></p>
+        <button class='btn btn-default' value = "Helpful" (click)="rateReview(review._id)"  >Helpful</button> |  <a class='link' value = "Reply" [routerLink]="['/review/', review._id]">Reply</a> | <a class='link' value = "Report" [routerLink]="['/report/', review._id]"><span class="glyphicon glyphicon-flag"></span> Report Review</a>
+      </div>
+      <div class="col-xs-12">
+        <br><br><br>
+      </div>
+  </div>
+  </div>
+        <br><br>

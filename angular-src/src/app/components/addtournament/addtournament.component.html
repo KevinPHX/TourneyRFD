@@ -1,0 +1,124 @@
+<h2 class='page-header'>Add Tournament</h2>
+<form>
+  <div class = "col-xs-6">
+  <div class='form-group'>
+    <label>Tournament Name</label><br>
+    <input type='text' [(ngModel)]='name' name='name' class="form-control">
+  </div>
+  </div>
+  <div class = "col-xs-3">
+  <div class='form-group'>
+    <label>Start Date</label><br>
+    <input type="date" name="startdate" [(ngModel)]='startdate' class="form-control">
+  </div>
+  </div>
+  <div class = "col-xs-3">
+  <div class='form-group'>
+    <label>End Date</label><br>
+    <input type="date" name="enddate" [(ngModel)]='enddate' class="form-control">
+  </div>
+  </div>
+    <div class='form-group'>
+     <div class= "col-xs-4">
+      <label>Events with Bids</label>
+      <form #formRef="ngForm">
+         <div *ngFor="let eventwithbid of eventswithbids; let in=index">
+
+             <div class="form-group">
+               <div class= "col-xs-2">
+                 <button  class = 'btn btn-default'  (click)="remove(in)"><span class="glyphicon glyphicon-remove"></span></button>
+               </div>
+               <div class= "col-xs-10">
+                 <input  type="text" [(ngModel)]="eventswithbids[in].value" name="name{{in}}" class="form-control" #name="ngModel" value = "eventswithbids[in].value" required />
+               </div>
+               <br />
+
+
+               <!--<p [hidden]="words2[in].value">Field is required</p>
+               {{formRef.form.name1}}-->
+             </div>
+             <!-- <br /> -->
+
+         </div>
+       </form>
+    </div>
+    <div class= "col-xs-4">
+     <label>Bid Rounds</label>
+     <form #formRef="ngForm">
+       <div *ngFor="let bidround of bidrounds; let in=index" >
+
+           <div class="form-group">
+             <div class= "col-xs-12">
+             <input type="text" [(ngModel)]="bidrounds[in].value" name="name{{in}}" class="form-control" #name="ngModel" required/>
+             </div>
+             <br />
+           </div>
+       </div>
+      </form>
+        <br>
+        <br>
+        <!-- <button style="float: right;" [disabled]="!formRef.form.valid" (click)="addbidrounds()"(click)="add()" class = 'btn btn-default'>Add Event</button> -->
+        <button style="float: right;" (click)="addbidrounds()"(click)="add()" class = 'btn btn-default'>Add Event</button>
+
+       <!-- {{eventswithbids | json}}
+       {{bidrounds | json}} -->
+       <br />
+       <br />
+       <br />
+       <br />
+   </div>
+   <div class= "col-xs-4">
+    <label>Events without Bids</label>
+    <form #formRef1="ngForm" >
+       <div *ngFor="let eventwithoutbid of eventswithoutbids; let in=index">
+
+           <div class="form-group">
+             <div class = "col-xs-2">
+               <button class = 'btn btn-default'  (click)="removeWithoutBid(in)"><span class="glyphicon glyphicon-remove"></span></button>
+             </div>
+             <div class = "col-xs-10">
+             <input type="text" [(ngModel)]="eventswithoutbids[in].value" name="name{{in}}" class="form-control" #name="ngModel" required />
+
+             </div>
+                         <br />
+           </div>
+         </div>
+     </form>
+     <br>
+     <br>
+      <button style="float: right;" class = 'btn btn-default'  (click)="addwithoutbids()">Add Event</button>
+      <br />
+      <br />
+      <br />
+      <br />
+  </div>
+ </div>
+ <br />
+ <br />
+ <br />
+ <br />
+ <div class = "col-xs-12">
+
+  <div class='form-group'>
+    <label>Screws</label>
+    <input type='text' [(ngModel)]='screws' name='screws' class="form-control">
+  </div>
+  </div>
+  <div class = "col-xs-12">
+    <div class='form-group'>
+      <label>Tournament Website Link</label>
+      <input type= 'text' [(ngModel)]='link' name='link' class='form-control'>
+    </div>
+  </div>
+
+  <div class = "col-xs-12">
+    <div class='form-group'>
+      <label>Address</label>
+      <input type= 'text' [(ngModel)]='address' name='address' class='form-control'>
+    </div>
+  </div>
+
+<div class = "col-xs-12">
+  <input type='submit' class = 'btn btn-primary' value='Submit' (click)=onTournamentSubmit()>
+</div>
+</form>

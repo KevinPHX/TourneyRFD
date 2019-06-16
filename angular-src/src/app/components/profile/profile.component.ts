@@ -26,4 +26,8 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  // updateProfile(id){
+  //   this.router.navigate(['/update/'+id])
+  // }
+
 }

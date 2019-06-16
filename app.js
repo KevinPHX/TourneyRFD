@@ -6,12 +6,15 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const config = require('./config/database');
 const MongoClient = require('mongodb').MongoClient;
-const url = "mongodb://localhost:27017/meanauth";
+const url = "mongodb://localhost:27017/tourneyreview";
 var mongojs = require("mongojs");
 var db = mongojs('users',['users']);
 var fs = require('fs');
+var multer = require('multer');
+//var upload = multer({ dest: 'uploads/' })
+const Image = require('./models/image');
 //Connect To Database
-mongoose.createConnection(config.database);
+mongoose.createConnection(config.database)
 
 //On Connection
 mongoose.connection.on('connected', () => {
@@ -28,10 +31,20 @@ const users=require('./routes/users');
 const user=require('./models/user');
 
 //Port Number
-const port = 80;
+const port = 3000;
 
 //CORS Middleware
 app.use(cors());
+
+
+// app.use(multer({ dest: './uploads/',
+//  rename: function (fieldname, filename) {
+//    return filename;
+//  },
+// }), function(req, res, next){
+//   console.log("multer middleware")
+// });
+app.use(multer({dest:'uploads/'}).any());
 
 //Set Static Folder
 app.use(express.static(path.join(__dirname, 'public')));
@@ -46,6 +59,8 @@ require('./config/passport')(passport);//passport
 
 app.use('/users', users)
 
+
+
 //Index Route
 app.get('/', (req,res) => {
   res.send('Invalid Endpoint')
@@ -59,6 +74,14 @@ app.get('/', (req,res) => {
 app.listen(port, () => {
   console.log('Server started on port ' + port);
 });
+
+
+
+
+
+
+
+
 //Express POST
 app.post("/dashboard",function (req, res) {
   var newId = req.body._id;

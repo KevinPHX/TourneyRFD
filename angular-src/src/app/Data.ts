@@ -3,9 +3,6 @@ export class Data{
     firstname: string;
     lastname: string;
     email: string;
-    phonenumber:string;
     role:string;
-    school:string;
-    address:string;
-    distance:number;
+    affiliation:string;
 }

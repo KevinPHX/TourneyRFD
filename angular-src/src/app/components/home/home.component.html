@@ -1,5 +1,30 @@
-  <div class = "background">
-    <img src = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Brophy_College_and_Chapel_%281%29.JPG/1200px-Brophy_College_and_Chapel_%281%29.JPG" width = 100% height = 100%>
-    <h1>Welcome to the Brophy Carpool</h1>
 
+<div class="jumbotron">
+  <h1>[Company Name]</h1>
+  <br>
+  <div class="searchbar">
+  <input type="text" [(ngModel)]="term" name="term" class="form-control"  placeholder="Search">
   </div>
+</div>
+<h2>Tournaments</h2>
+  <div *ngFor="let docs of documents | filter:term">
+    <ul class='list-group'>
+      <li class='list-group-item'>
+        <div class="col-xs-4">
+        <a [routerLink]="['/tournament/', docs._id]"><h4>{{docs.name}}</h4></a>
+         <!-- (click)="onLinkClick(docs._id)" -->
+        </div>
+        <div class="col-xs-2">
+          <b><h5>Tournament Dates</h5></b>
+          <b>Start Date: {{docs.startdate}}</b> <br>
+          <b>End Date: {{docs.enddate}}</b>
+        </div>
+        <div class="col-xs-2">
+          <b><h5>Tournament Address</h5></b>
+          <b>{{docs.address}}</b>
+        </div>
+        <b><h5>Overall Rating</h5></b> <bar-rating [rate]=docs.overall [max]="5" [readOnly]='true'></bar-rating>
+      </li>
+    </ul>
+</div>
+    <br><br>

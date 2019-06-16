@@ -18,13 +18,7 @@ export class DashboardComponent implements OnInit{
 user: Object;
 data: Data[];
 
-  constructor(private dataService: DataService, private authService:AuthService, private http: Http, private router:Router) {
-    this.dataService.retrieveProfile()
-        .subscribe(data => {
-          console.log(data)
-            this.documents = data;
-        });
-  }
+  constructor(private dataService: DataService, private authService:AuthService, private http: Http, private router:Router) { }
 
   ngOnInit() {
     this.authService.getProfile().subscribe(profile => {
@@ -37,6 +31,11 @@ data: Data[];
       console.log(err);
       return false;
     });
+    this.dataService.getUserReviews()
+        .subscribe(data => {
+          console.log(data)
+          this.documents = data;
+        });
   }
 
 }

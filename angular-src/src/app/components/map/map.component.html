@@ -1,0 +1,11 @@
+<div *ngFor="let docs of documents">
+  <a [routerLink]="['/tournament/', docs._id]" ><h2 class='page-header'>{{docs.name}}</h2></a>
+  <br>
+  <agm-map [latitude]="docs.latitude" [longitude]="docs.longitude" [zoom]="9">
+        <agm-marker [latitude]="docs.latitude" [longitude]="docs.longitude" >
+          <agm-info-window #infoWindow>
+		          <a [routerLink]="['/tournament/', docs._id]" ><h4>{{docs.name}}</h4></a>
+	        </agm-info-window>
+        </agm-marker>
+  </agm-map>
+</div>
