@@ -226,7 +226,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_4__angular_router__["RouterModule"].forRoot(appRoutes),
                 __WEBPACK_IMPORTED_MODULE_20_angular2_flash_messages__["FlashMessagesModule"],
                 __WEBPACK_IMPORTED_MODULE_5__agm_core__["a" /* AgmCoreModule */].forRoot({
-                    apiKey: 'AIzaSyD_psTAXcXV9eR4FzF_BFe59jDFMAbVM5k'
+                    apiKey: 'google map api key'
                 }),
                 __WEBPACK_IMPORTED_MODULE_6_angular2_image_upload__["a" /* ImageUploadModule */].forRoot(),
                 __WEBPACK_IMPORTED_MODULE_7_ngx_bar_rating__["a" /* BarRatingModule */],

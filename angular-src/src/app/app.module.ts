@@ -99,7 +99,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FlashMessagesModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyD_psTAXcXV9eR4FzF_BFe59jDFMAbVM5k'
+      apiKey: 'google map api key'
     }),
     ImageUploadModule.forRoot(),
     BarRatingModule,
