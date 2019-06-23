@@ -41,6 +41,7 @@
     "randombytes": "^2.0.6",
     "request": "^2.81.0",
     "sshpk": "^1.13.2",
+    "stringstream": "0.0.6",
     "tough-cookie": "^2.3.3",
     "webpack": "^3.0.0"
   },
