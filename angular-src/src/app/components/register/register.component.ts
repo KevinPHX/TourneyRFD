@@ -34,19 +34,37 @@ onRegisterSubmit(){
     password: this.password,
     affiliation: this.affiliation,
     }
-
+    this.authService.findUsers().subscribe(Data => {
     if(!this.validateService.validateRegister(user)){
       this.flashMessages.show("Please fill in all fields", {cssClass:'alert-danger', timeout:3000});
+      return false;
+    }
+    if(!this.agreement) {
+      console.log(this.agreement)
+      this.flashMessages.show("Please indicate that you accept the Terms and Conditions", {cssClass:'alert-danger', timeout:3000});
       return false;
     }
     if(!this.validateService.validateEmail(user.email)){
       this.flashMessages.show("Please use a valid email", {cssClass:'alert-danger', timeout:3000});
       return false;
     }
-    if(!this.agreement.checked) {
-      this.flashMessages.show("Please indicate that you accept the Terms and Conditions", {cssClass:'alert-danger', timeout:3000});
-      return false;
-    }
+    for (var i = 0; i < Data.length; i++){
+        if (user.email == Data[i].email){
+          this.flashMessages.show("Please use a different email", {cssClass:'alert-danger', timeout:3000});
+          this.router.navigate(['/register'])
+          return false;
+        }
+      }
+        for (var j = 0; j < Data.length; j++){
+        if (user.username == Data[j].username){
+          this.flashMessages.show("Please use a different username", {cssClass:'alert-danger', timeout:3000});
+          this.router.navigate(['/register'])
+          return false;
+        }
+      }
+
+
+
 
 
       // this.flashMessages.show("Check your email to verify account", {cssClass:'alert-success', timeout:10000});
@@ -66,6 +84,7 @@ onRegisterSubmit(){
 
     document.getElementById("openModalButton").click();
 
+  }
 
 
 

@@ -51,12 +51,14 @@ Data:Data[];
             }
 
           });
-
-        } else {
+          i = Data.length+1;
+        }
+        if (i == Data.length -1 && user.email !== Data[i].email) {
           this.flashMessage.show("Please enter the email you registered with", {cssClass:'alert-danger', timeout:3000});
           return false;
         }
       }
+
   })
 
 

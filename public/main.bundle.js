@@ -226,7 +226,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_4__angular_router__["RouterModule"].forRoot(appRoutes),
                 __WEBPACK_IMPORTED_MODULE_20_angular2_flash_messages__["FlashMessagesModule"],
                 __WEBPACK_IMPORTED_MODULE_5__agm_core__["a" /* AgmCoreModule */].forRoot({
-                    apiKey: 'insert maps api key'
+                    apiKey: 'AIzaSyD_psTAXcXV9eR4FzF_BFe59jDFMAbVM5k'
                 }),
                 __WEBPACK_IMPORTED_MODULE_6_angular2_image_upload__["a" /* ImageUploadModule */].forRoot(),
                 __WEBPACK_IMPORTED_MODULE_7_ngx_bar_rating__["a" /* BarRatingModule */],
@@ -268,7 +268,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/aboutus/aboutus.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  aboutus works!\n</p>\n"
+module.exports = "<h2>About Us</h2>\n<br>\n\n<p style='font-size: 21px'>\nWe are an independent, community run website with the purpose of improving the Speech and Debate community. We wanted to provide a safe space for Speech and Debaters to share their opinions and experiences at national tournaments. Our goals are two-fold:\n</p>\n<p style='font-size: 21px'>\n    <li>Collect and provide information about national tournaments to everyone</li>\n    <li>Promote and facilitate change among tournaments with the goal of improving tournament quality</li>\n</p>\n<p style='font-size: 21px'>\n</p>\n"
 
 /***/ }),
 
@@ -1111,7 +1111,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/footer/footer.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<footer class=\"page-footer font-small pt-4\">\n\n  <!-- Footer Links -->\n  <div class=\"container-fluid text-center text-md-left\">\n\n    <!-- Grid row -->\n    <div class=\"row\">\n\n      <!-- Grid column -->\n      <div class=\"col-md-6 mt-md-0 mt-3\">\n\n        <!-- Content -->\n        <h3 style=\"color:white;\">[Company Name]</h3>\n        <h5 style = \"color:white\">Contact Us</h5>\n        <p style = \"color:white\">Email: kyin20@brophybroncos.org</p>\n        <p style = \"color:white\">Phone Number: (602) 737 9976</p>\n      </div>\n      <!-- Grid column -->\n\n      <br>\n      <br>\n      <!-- Grid column -->\n      <div class=\"col-md-6 mb-md-0 mb-6\">\n\n        <ul class=\"list-unstyled\">\n          <li>\n            <a [routerLink]=\"['/termsandconditions']\"><h4 style = \"color:white\">Terms and Conditions</h4></a>\n          </li>\n          <li>\n            <a [routerLink]=\"['/aboutus']\"><h4 style = \"color:white\">About Us</h4></a>\n          </li>\n\n        </ul>\n\n      </div>\n      <!-- Grid column -->\n\n\n\n    </div>\n    <!-- Grid row -->\n\n  </div>\n  <!-- Footer Links -->\n\n  <!-- Copyright -->\n  <div class=\"footer-copyright\" style = \"text-align: center\">© 2019 Copyright [Company Name]\n    <a href=\"https://mdbootstrap.com/education/bootstrap/\"> MDBootstrap.com</a>\n  </div>\n  <!-- Copyright -->\n"
+module.exports = "<footer class=\"page-footer font-small pt-4\">\n\n  <!-- Footer Links -->\n  <div class=\"container-fluid text-center text-md-left\">\n\n    <!-- Grid row -->\n    <div class=\"row\">\n\n      <!-- Grid column -->\n      <div class=\"col-md-6 mt-md-0 mt-3\">\n\n        <!-- Content -->\n        <h3 style=\"color:white;\">TourneyRFD</h3>\n        <h5 style = \"color:white\">Contact Us</h5>\n        <p style = \"color:white\">Email: kyin20@brophybroncos.org</p>\n        <p style = \"color:white\">Phone Number: (602) 737 9976</p>\n      </div>\n      <!-- Grid column -->\n\n      <br>\n      <br>\n      <!-- Grid column -->\n      <div class=\"col-md-6 mb-md-0 mb-6\">\n\n        <ul class=\"list-unstyled\">\n          <li>\n            <a [routerLink]=\"['/termsandconditions']\"><h4 style = \"color:white\">Terms and Conditions</h4></a>\n          </li>\n          <li>\n            <a [routerLink]=\"['/aboutus']\"><h4 style = \"color:white\">About Us</h4></a>\n          </li>\n\n        </ul>\n\n      </div>\n      <!-- Grid column -->\n\n\n\n    </div>\n    <!-- Grid row -->\n\n  </div>\n  <!-- Footer Links -->\n\n  <!-- Copyright -->\n  <div class=\"footer-copyright\" style = \"text-align: center\">© 2019 Copyright [Company Name]\n    <a href=\"https://mdbootstrap.com/education/bootstrap/\"> MDBootstrap.com</a>\n  </div>\n  <!-- Copyright -->\n"
 
 /***/ }),
 
@@ -1237,8 +1237,9 @@ var ForgotComponent = /** @class */ (function () {
                             _this.router.navigate(['/login']);
                         }
                     });
+                    i = Data.length + 1;
                 }
-                else {
+                if (i == Data.length - 1 && user.email !== Data[i].email) {
                     _this.flashMessage.show("Please enter the email you registered with", { cssClass: 'alert-danger', timeout: 3000 });
                     return false;
                 }
@@ -1282,7 +1283,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"jumbotron\">\n  <h1>[Company Name]</h1>\n  <br>\n  <div class=\"searchbar\">\n  <input type=\"text\" [(ngModel)]=\"term\" name=\"term\" class=\"form-control\"  placeholder=\"Search\">\n  </div>\n</div>\n<h2>Tournaments</h2>\n  <div *ngFor=\"let docs of documents | filter:term\">\n    <ul class='list-group'>\n      <li class='list-group-item'>\n        <div class=\"col-xs-4\">\n        <a [routerLink]=\"['/tournament/', docs._id]\"><h4>{{docs.name}}</h4></a>\n         <!-- (click)=\"onLinkClick(docs._id)\" -->\n        </div>\n        <div class=\"col-xs-2\">\n          <b><h5>Tournament Dates</h5></b>\n          <b>Start Date: {{docs.startdate}}</b> <br>\n          <b>End Date: {{docs.enddate}}</b>\n        </div>\n        <div class=\"col-xs-2\">\n          <b><h5>Tournament Address</h5></b>\n          <b>{{docs.address}}</b>\n        </div>\n        <b><h5>Overall Rating</h5></b> <bar-rating [rate]=docs.overall [max]=\"5\" [readOnly]='true'></bar-rating>\n      </li>\n    </ul>\n</div>\n    <br><br>\n"
+module.exports = "\n<div class=\"jumbotron\">\n  <h1>TourneyRFD</h1>\n  <br>\n  <div class=\"searchbar\">\n  <input type=\"text\" [(ngModel)]=\"term\" name=\"term\" class=\"form-control\"  placeholder=\"Search\">\n  </div>\n</div>\n<h2>Tournaments</h2>\n  <div *ngFor=\"let docs of documents | filter:term\">\n    <ul class='list-group'>\n      <li class='list-group-item'>\n        <div class=\"col-xs-4\">\n        <a [routerLink]=\"['/tournament/', docs._id]\"><h4>{{docs.name}}</h4></a>\n         <!-- (click)=\"onLinkClick(docs._id)\" -->\n        </div>\n        <div class=\"col-xs-2\">\n          <b><h5>Tournament Dates</h5></b>\n          <b>Start Date: {{docs.startdate}}</b> <br>\n          <b>End Date: {{docs.enddate}}</b>\n        </div>\n        <div class=\"col-xs-2\">\n          <b><h5>Tournament Address</h5></b>\n          <b>{{docs.address}}</b>\n        </div>\n        <b><h5>Overall Rating</h5></b> <bar-rating [rate]=docs.overall [max]=\"5\" [readOnly]='true'></bar-rating>\n      </li>\n    </ul>\n</div>\n    <br><br>\n"
 
 /***/ }),
 
@@ -1677,7 +1678,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/navbar/navbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default\">\n      <div class=\"container\">\n        <div class=\"navbar-header\">\n          <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\">\n            <span class=\"sr-only\">Toggle navigation</span>\n            <span class=\"icon-bar\"></span>\n            <span class=\"icon-bar\"></span>\n            <span class=\"icon-bar\"></span>\n          </button>\n        </div>\n        <div id=\"navbar\" class=\"collapse navbar-collapse\">\n          <ul class=\"nav navbar-nav navbar-left\">\n            <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]='{exact:true}'><a class=\"navbar-brand\" [routerLink]=\"['/']\"><b>[Company Name Here]</b></a></li>\n          </ul>\n          <ul class=\"nav navbar-nav navbar-right\">\n\n            <li *ngIf='authService.loggedIn()' [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]='{exact:true}'><a [routerLink]=\"['/addtournament']\">Add a Tournament</a></li>\n            <li *ngIf='authService.loggedIn()' [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]='{exact:true}'><a [routerLink]=\"['/dashboard']\">Dashboard</a></li>\n            <li *ngIf='authService.loggedIn()' [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]='{exact:true}'><a [routerLink]=\"['/profile']\">Profile</a></li>\n\n            <li *ngIf='!authService.loggedIn()' [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]='{exact:true}'><a [routerLink]=\"['/login']\">Login</a></li>\n            <li *ngIf='authService.loggedIn()'><a (click)='onLogoutClick()' href='#'>Logout</a></li>\n          </ul>\n        </div>\n      </div>\n    </nav>\n"
+module.exports = "<nav class=\"navbar navbar-default\">\n      <div class=\"container\">\n        <div class=\"navbar-header\">\n          <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\">\n            <span class=\"sr-only\">Toggle navigation</span>\n            <span class=\"icon-bar\"></span>\n            <span class=\"icon-bar\"></span>\n            <span class=\"icon-bar\"></span>\n          </button>\n        </div>\n        <div id=\"navbar\" class=\"collapse navbar-collapse\">\n          <ul class=\"nav navbar-nav navbar-left\">\n            <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]='{exact:true}'><a class=\"navbar-brand\" [routerLink]=\"['/']\"><b>TourneyRFD</b></a></li>\n          </ul>\n          <ul class=\"nav navbar-nav navbar-right\">\n\n            <li *ngIf='authService.loggedIn()' [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]='{exact:true}'><a [routerLink]=\"['/addtournament']\">Add a Tournament</a></li>\n            <li *ngIf='authService.loggedIn()' [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]='{exact:true}'><a [routerLink]=\"['/dashboard']\">Dashboard</a></li>\n            <li *ngIf='authService.loggedIn()' [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]='{exact:true}'><a [routerLink]=\"['/profile']\">Profile</a></li>\n\n            <li *ngIf='!authService.loggedIn()' [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]='{exact:true}'><a [routerLink]=\"['/login']\">Login</a></li>\n            <li *ngIf='authService.loggedIn()'><a (click)='onLogoutClick()' href='#'>Logout</a></li>\n          </ul>\n        </div>\n      </div>\n    </nav>\n"
 
 /***/ }),
 
@@ -1833,7 +1834,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/register/register.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h2 lass='page-header'>Register</h2>\n<form (submit)='onRegisterSubmit()'>\n  <div class='form-group'>\n    <label>Student or Coach</label><br>\n    <input type='radio' [(ngModel)]='role' name='student' value='Student' class=\"form-check\">   Student\n    <input type='radio' [(ngModel)]='role' name='coach' value='Coach' class=\"form-check\">   Coach\n  </div>\n  <div class='form-group'>\n    <label>Affiliation</label><br>\n    <input type='text' [(ngModel)]='affiliation' name='affiliation' class=\"form-control\">\n  </div>\n  <div class='form-group'>\n    <label>First Name</label>\n    <input type='text' [(ngModel)]='firstname' name='firstname' class=\"form-control\">\n  </div>\n  <div class='form-group'>\n    <label>Last Name</label>\n    <input type='text' [(ngModel)]='lastname' name='lastname' class=\"form-control\">\n  </div>\n\n  <div class='form-group'>\n    <label>Email</label>\n    <input type= 'text' [(ngModel)]='email' name='email' class='form-control'>\n  </div>\n  <div class='form-group'>\n    <label>Username</label>\n    <input type= 'text' [(ngModel)]='username' name='username' class='form-control'>\n  </div>\n  <div class='form-group'>\n    <label>Password</label>\n    <input type= 'password' [(ngModel)]='password' name='password' class='form-control'>\n  </div>\n  <div class=\"checkbox\">\n    <label><input type=\"checkbox\" [(ngModel)]='agreement' name='agreement' value=\"\">I accept the Terms and Conditions</label>\n  </div>\n\n  <input type='submit' class = 'btn btn-primary' value='Submit' >\n\n\n  <div class=\"modal\" id=\"myModal\" role=\"dialog\" >\n      <div class=\"modal-dialog\">\n        <!-- Modal content-->\n        <div class=\"modal-content\">\n          <div class=\"modal-body\">\n            <h3>Congratulations on making your account!</h3>\n            <p> A confirmation email has been sent to your email account with further instructions.</p>\n          </div>\n          <div class=\"modal-footer\">\n            <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\" [routerLink]=\"['/login']\">Ok</button>\n          </div>\n        </div>\n      </div>\n  </div>\n\n  <button id=\"openModalButton\" [hidden]=\"true\" data-toggle=\"modal\" data-target=\"#myModal\">Open Modal</button>\n\n\n</form>\n"
+module.exports = "<h2 lass='page-header'>Register</h2>\n<form (submit)='onRegisterSubmit()'>\n\n\n\n  <div class = 'col-xs-6'>\n    <div class='form-group'>\n      <label>First Name</label>\n      <input type='text' [(ngModel)]='firstname' name='firstname' class=\"form-control\">\n    </div>\n  </div>\n\n  <div class = 'col-xs-6'>\n    <div class='form-group'>\n      <label>Last Name</label>\n      <input type='text' [(ngModel)]='lastname' name='lastname' class=\"form-control\">\n    </div>\n  </div>\n\n  <div class = 'col-xs-2'>\n  <div class='form-group'>\n    <label>Student or Coach</label><br>\n    <input type='radio' [(ngModel)]='role' name='student' value='Student' class=\"form-check\">   Student\n    <input type='radio' [(ngModel)]='role' name='coach' value='Coach' class=\"form-check\">   Coach\n  </div>\n  </div>\n  <div class = 'col-xs-10'>\n  <div class='form-group'>\n    <label>Affiliation</label><br>\n    <input type='text' [(ngModel)]='affiliation' name='affiliation' class=\"form-control\">\n  </div>\n  </div>\n  <div class = 'col-xs-7'>\n  <div class='form-group'>\n    <label>Email</label>\n    <input type= 'text' [(ngModel)]='email' name='email' class='form-control'>\n  </div>\n  </div>\n  <div class = 'col-xs-5'>\n  <div class='form-group'>\n    <label>Username</label>\n    <input type= 'text' [(ngModel)]='username' name='username' class='form-control'>\n  </div>\n  </div>\n  <div class = 'col-xs-12'>\n  <div class='form-group'>\n    <label>Password</label>\n    <input type= 'password' [(ngModel)]='password' name='password' class='form-control'>\n  </div>\n\n  <br>\n  <div class=\"checkbox\">\n    <label><input type=\"checkbox\" [(ngModel)]='agreement' name='agreement' value=\"\">I accept the <a [routerLink]=\"['/termsandconditions']\">Terms and Conditions</a></label>\n  </div>\n\n  </div>\n\n` <br>`\n  <input type='submit' class = 'btn btn-primary' value='Submit' >\n\n\n\n</form>\n\n<div class=\"modal\" id=\"myModal\" role=\"dialog\" >\n    <div class=\"modal-dialog\">\n      <!-- Modal content-->\n      <div class=\"modal-content\">\n        <div class=\"modal-body\">\n          <h3>Congratulations on making your account!</h3>\n          <p> A confirmation email has been sent to your email account with further instructions.</p>\n        </div>\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\" [routerLink]=\"['/login']\">Ok</button>\n        </div>\n      </div>\n    </div>\n</div>\n\n<button id=\"openModalButton\" [hidden]=\"true\" data-toggle=\"modal\" data-target=\"#myModal\">Open Modal</button>\n"
 
 /***/ }),
 
@@ -1886,32 +1887,49 @@ var RegisterComponent = /** @class */ (function () {
             password: this.password,
             affiliation: this.affiliation,
         };
-        if (!this.validateService.validateRegister(user)) {
-            this.flashMessages.show("Please fill in all fields", { cssClass: 'alert-danger', timeout: 3000 });
-            return false;
-        }
-        if (!this.validateService.validateEmail(user.email)) {
-            this.flashMessages.show("Please use a valid email", { cssClass: 'alert-danger', timeout: 3000 });
-            return false;
-        }
-        if (!this.agreement.checked) {
-            this.flashMessages.show("Please indicate that you accept the Terms and Conditions", { cssClass: 'alert-danger', timeout: 3000 });
-            return false;
-        }
-        // this.flashMessages.show("Check your email to verify account", {cssClass:'alert-success', timeout:10000});
-        // this.router.navigate(['/login'])
-        //Register User
-        this.authService.registerUser(user).subscribe(function (data) {
-            if (data) {
-                _this.flashMessages.show("Check your email to verify account", { cssClass: 'alert-success', timeout: 3000 });
-                _this.router.navigate(['/login']);
+        this.authService.findUsers().subscribe(function (Data) {
+            if (!_this.validateService.validateRegister(user)) {
+                _this.flashMessages.show("Please fill in all fields", { cssClass: 'alert-danger', timeout: 3000 });
+                return false;
             }
-            else {
-                _this.flashMessages.show("Something went wrong", { cssClass: 'alert-danger', timeout: 3000 });
-                _this.router.navigate(['/register']);
+            if (!_this.agreement) {
+                console.log(_this.agreement);
+                _this.flashMessages.show("Please indicate that you accept the Terms and Conditions", { cssClass: 'alert-danger', timeout: 3000 });
+                return false;
             }
+            if (!_this.validateService.validateEmail(user.email)) {
+                _this.flashMessages.show("Please use a valid email", { cssClass: 'alert-danger', timeout: 3000 });
+                return false;
+            }
+            for (var i = 0; i < Data.length; i++) {
+                if (user.email == Data[i].email) {
+                    _this.flashMessages.show("Please use a different email", { cssClass: 'alert-danger', timeout: 3000 });
+                    _this.router.navigate(['/register']);
+                    return false;
+                }
+            }
+            for (var j = 0; j < Data.length; j++) {
+                if (user.username == Data[j].username) {
+                    _this.flashMessages.show("Please use a different username", { cssClass: 'alert-danger', timeout: 3000 });
+                    _this.router.navigate(['/register']);
+                    return false;
+                }
+            }
+            // this.flashMessages.show("Check your email to verify account", {cssClass:'alert-success', timeout:10000});
+            // this.router.navigate(['/login'])
+            //Register User
+            _this.authService.registerUser(user).subscribe(function (data) {
+                if (data) {
+                    _this.flashMessages.show("Check your email to verify account", { cssClass: 'alert-success', timeout: 3000 });
+                    _this.router.navigate(['/login']);
+                }
+                else {
+                    _this.flashMessages.show("Something went wrong", { cssClass: 'alert-danger', timeout: 3000 });
+                    _this.router.navigate(['/register']);
+                }
+            });
+            document.getElementById("openModalButton").click();
         });
-        document.getElementById("openModalButton").click();
     };
     RegisterComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -2305,7 +2323,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/termsandconditions/termsandconditions.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  termsandconditions works!\n</p>\n"
+module.exports = "\n<h2>\n\tWeb Site Terms and Conditions of Use\n</h2>\n\n<h3>\n\t1. Terms\n</h3>\n\n<p>\n\tBy accessing this web site, you are agreeing to be bound by these\n\tweb site Terms and Conditions of Use, all applicable laws and regulations,\n\tand agree that you are responsible for compliance with any applicable local\n\tlaws. If you do not agree with any of these terms, you are prohibited from\n\tusing or accessing this site. The materials contained in this web site are\n\tprotected by applicable copyright and trade mark law.\n</p>\n\n<h3>\n\t2. Use License\n</h3>\n\n<ol type=\"a\">\n\t<li>\n\t\tPermission is granted to temporarily download one copy of the materials\n\t\t(information or software) on TourneyRFD's web site for personal,\n\t\tnon-commercial transitory viewing only. This is the grant of a license,\n\t\tnot a transfer of title, and under this license you may not:\n\n\t\t<ol type=\"i\">\n\t\t\t<li>modify or copy the materials;</li>\n\t\t\t<li>use the materials for any commercial purpose, or for any public display (commercial or non-commercial);</li>\n\t\t\t<li>attempt to decompile or reverse engineer any software contained on TourneyRFD's web site;</li>\n\t\t\t<li>remove any copyright or other proprietary notations from the materials; or</li>\n\t\t\t<li>transfer the materials to another person or \"mirror\" the materials on any other server.</li>\n\t\t</ol>\n\t</li>\n\t<li>\n\t\tThis license shall automatically terminate if you violate any of these restrictions and may be terminated by TourneyRFD at any time. Upon terminating your viewing of these materials or upon the termination of this license, you must destroy any downloaded materials in your possession whether in electronic or printed format.\n\t</li>\n</ol>\n\n<h3>\n\t3. Disclaimer\n</h3>\n\n<ol type=\"a\">\n\t<li>\n\t\tThe materials on TourneyRFD's web site are provided \"as is\". TourneyRFD makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights. Further, TourneyRFD does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its Internet web site or otherwise relating to such materials or on any sites linked to this site.\n\t</li>\n</ol>\n\n<h3>\n\t4. Limitations\n</h3>\n\n<p>\n\tIn no event shall TourneyRFD or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption,) arising out of the use or inability to use the materials on TourneyRFD's Internet site, even if TourneyRFD or a TourneyRFD authorized representative has been notified orally or in writing of the possibility of such damage. Because some jurisdictions do not allow limitations on implied warranties, or limitations of liability for consequential or incidental damages, these limitations may not apply to you.\n</p>\n\n<h3>\n\t5. Revisions and Errata\n</h3>\n\n<p>\n\tThe materials appearing on TourneyRFD's web site could include technical, typographical, or photographic errors. TourneyRFD does not warrant that any of the materials on its web site are accurate, complete, or current. TourneyRFD may make changes to the materials contained on its web site at any time without notice. TourneyRFD does not, however, make any commitment to update the materials.\n</p>\n\n<h3>\n\t6. Links\n</h3>\n\n<p>\n\tTourneyRFD has not reviewed all of the sites linked to its Internet web site and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by TourneyRFD of the site. Use of any such linked web site is at the user's own risk.\n</p>\n\n<h3>\n\t7. Site Terms of Use Modifications\n</h3>\n\n<p>\n\tTourneyRFD may revise these terms of use for its web site at any time without notice. By using this web site you are agreeing to be bound by the then current version of these Terms and Conditions of Use.\n</p>\n\n<h3>\n\t8. Governing Law\n</h3>\n\n<p>\n\tAny claim relating to TourneyRFD's web site shall be governed by the laws of the State of Arizona without regard to its conflict of law provisions.\n</p>\n\n<p>\n\tGeneral Terms and Conditions applicable to Use of a Web Site.\n</p>\n\n\n\n<h2>\n\tPrivacy Policy\n</h2>\n\n<p>\n\tYour privacy is very important to us. Accordingly, we have developed this Policy in order for you to understand how we collect, use, communicate and disclose and make use of personal information. The following outlines our privacy policy.\n</p>\n\n<ul>\n\t<li>\n\t\tBefore or at the time of collecting personal information, we will identify the purposes for which information is being collected.\n\t</li>\n\t<li>\n\t\tWe will collect and use of personal information solely with the objective of fulfilling those purposes specified by us and for other compatible purposes, unless we obtain the consent of the individual concerned or as required by law.\n\t</li>\n\t<li>\n\t\tWe will only retain personal information as long as necessary for the fulfillment of those purposes.\n\t</li>\n\t<li>\n\t\tWe will collect personal information by lawful and fair means and, where appropriate, with the knowledge or consent of the individual concerned.\n\t</li>\n\t<li>\n\t\tPersonal data should be relevant to the purposes for which it is to be used, and, to the extent necessary for those purposes, should be accurate, complete, and up-to-date.\n\t</li>\n\t<li>\n\t\tWe will protect personal information by reasonable security safeguards against loss or theft, as well as unauthorized access, disclosure, copying, use or modification.\n\t</li>\n\t<li>\n\t\tWe will make readily available to customers information about our policies and practices relating to the management of personal information.\n\t</li>\n</ul>\n\n<p>\n\tWe are committed to conducting our business in accordance with these principles in order to ensure that the confidentiality of personal information is protected and maintained.\n</p>\n\n\t\t\t\n"
 
 /***/ }),
 
@@ -2533,7 +2551,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/update/update.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div ng-controller=\"ngOnInit\">\n<div *ngIf='user'>\n<h2 class='page-header'>Update</h2>\n<form (submit)='onUpdateSubmit()'>\n  <div class='form-group'>\n    <label>Student or Coach</label><br>\n    <input type='radio' [(ngModel)]='role' name='student' value='Student' class=\"form-check\">   Student\n    <input type='radio' [(ngModel)]='role' name='coach' value='Coach' class=\"form-check\">   Coach\n  </div>\n  <div class='form-group'>\n    <label>Affiliation</label><br>\n    <input type='text' [(ngModel)]='affiliation' name='affiliation' class=\"form-control\">\n  </div>\n  <div class='form-group'>\n    <label>First Name</label>\n    <input type='text' [(ngModel)]='firstname' name='firstname' class=\"form-control\">\n  </div>\n  <div class='form-group'>\n    <label>Last Name</label>\n    <input type='text' [(ngModel)]='lastname' name='lastname' class=\"form-control\">\n  </div>\n  <div class='form-group'>\n    <label>Email</label>\n    <input type= 'text' [(ngModel)]='email' name='email' class='form-control'>\n  </div>\n  <div class='form-group'>\n    <label>Username</label>\n    <input type= 'text' [(ngModel)]='username' name='username' class='form-control'>\n  </div>\n\n\n  <input type='submit' class = 'btn btn-primary' value='Submit' > <a class='btn' [routerLink]=\"['/profile']\" value = \"Cancel\">Cancel</a>\n"
+module.exports = "<div ng-controller=\"ngOnInit\">\n<div *ngIf='user'>\n<h2 class='page-header'>Update</h2>\n<div class = 'col-xs-6'>\n  <div class='form-group'>\n    <label>First Name</label>\n    <input type='text' [(ngModel)]='firstname' name='firstname' class=\"form-control\">\n  </div>\n</div>\n\n<div class = 'col-xs-6'>\n  <div class='form-group'>\n    <label>Last Name</label>\n    <input type='text' [(ngModel)]='lastname' name='lastname' class=\"form-control\">\n  </div>\n</div>\n\n<div class = 'col-xs-2'>\n<div class='form-group'>\n  <label>Student or Coach</label><br>\n  <input type='radio' [(ngModel)]='role' name='student' value='Student' class=\"form-check\">   Student\n  <input type='radio' [(ngModel)]='role' name='coach' value='Coach' class=\"form-check\">   Coach\n</div>\n</div>\n<div class = 'col-xs-10'>\n<div class='form-group'>\n  <label>Affiliation</label><br>\n  <input type='text' [(ngModel)]='affiliation' name='affiliation' class=\"form-control\">\n</div>\n</div>\n<div class = 'col-xs-7'>\n<div class='form-group'>\n  <label>Email</label>\n  <input type= 'text' [(ngModel)]='email' name='email' class='form-control'>\n</div>\n</div>\n<div class = 'col-xs-5'>\n<div class='form-group'>\n  <label>Username</label>\n  <input type= 'text' [(ngModel)]='username' name='username' class='form-control'>\n</div>\n</div>\n\n\n  <input type='submit' class = 'btn btn-primary' value='Submit' > <a class='btn' [routerLink]=\"['/profile']\" value = \"Cancel\">Cancel</a>\n"
 
 /***/ }),
 

@@ -52,19 +52,19 @@ router.get('/photo/:tournamentid', function(req, res, next) {
 })
 
 nev.configure({
-    verificationURL: 'http://localhost:3000/users/email-verification/${URL}',
+    verificationURL: 'http://localhost:4200/email-verification/${URL}',
     persistentUserModel: User,
     tempUserCollection: 'temporary_users',
 
     transportOptions: {
         service: 'Gmail',
         auth: {
-            user: 'brophy.carpool.sign.up@gmail.com',
-            pass: 'Whatever2018'
+            user: 'kevin.tourneyrfd@gmail.com',
+            pass: 'tourneyrfd2020'
         }
     },
     verifyMailOptions: {
-        from: 'Do Not Reply <brophy.carpool.sign.up_do_not_reply@gmail.com>',
+        from: 'Do Not Reply <administrator@tourneyrfd.com>',
         subject: 'Please confirm account',
         html: 'Click the following link to confirm your account:</p><p>${URL}</p>',
         text: 'Please confirm your account by clicking the following link: ${URL}'
@@ -166,7 +166,7 @@ router.post('/addtournament', (req, res, next) => {
       axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
         params: {
             address: Address,
-            key: "insert geocode api key"
+            key: "AIzaSyAm1tkJQOZCC33-0w_PkblDN_3Yykqkng4"
         }
       })
       .then(function(response){
@@ -226,7 +226,7 @@ router.post('/edittournament/:id', (req, res, next) => {
       axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
         params: {
             address: Address,
-            key: "insert geocode api key"
+            key: "AIzaSyAm1tkJQOZCC33-0w_PkblDN_3Yykqkng4"
         }
       })
       .then(function(response){
@@ -275,7 +275,6 @@ router.post('/deletetournament/:id', (req, res, next) => {
       }
   });
 })
-
 
 router.post('/addreview/:tournamentid/:id', (req, res, next) => {
   var date = new Date()
@@ -440,12 +439,12 @@ router.post("/reportreview/:reviewid/:id", (req, res, next) => {
       var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'brophy.carpool.sign.up@gmail.com',
-          pass: 'Whatever2018'
+          user: 'kevin.tourneyrfd@gmail.com',
+          pass: 'tourneyrfd2020'
         }
       });
       var mailOptions = {
-        from: 'brophy.carpool.sign.up@gmail.com',
+        from: 'kevin.tourneyrfd@gmail.com',
         to: "kyin20@brophybroncos.org",
         subject: 'Reporting Review',
         text: newReport.reporterfirstname + " " + newReport.reporterlastname + " has reported " + review.firstname + " " + review.lastname + "'s review made on " + review.date + " for " + review.tournamentname + ". The report ratings: Judging Pool: " + review.judgingpool + " Accomodations: " + review.accomodations + " Location: " + review.location + " Scheduling: " + review.scheduling + ". Content: " + review.content + ". Reason for reporting: " + newReport.reportcontent
@@ -623,15 +622,15 @@ console.log('step 1')
       var smtpTrans = nodemailer.createTransport({
          service: 'Gmail',
          auth: {
-          user: 'carpoolpassreset@gmail.com',
-          pass: 'carpool2018'
+          user: 'kevin.tourneyrfd@gmail.com',
+          pass: 'tourneyrfd2020'
         }
       });
       var mailOptions = {
 
         to: user.email,
-        from: 'carpoolpassreset@gmail.com',
-        subject: 'Brophy Carpool Password Reset',
+        from: 'administrator@tourneyrfd.com',
+        subject: 'TourneyRFD Password Reset',
         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
           'http://localhost:4200/reset/' + token + '\n\n' +
@@ -727,13 +726,13 @@ user.save(function(err) {
       var smtpTrans = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
-          user: 'carpoolpassreset@gmail.com',
-          pass: 'carpool2018'
+          user: 'kevin.tourneyrfd@gmail.com',
+          pass: 'tourneyrfd2020'
         }
       });
       var mailOptions = {
         to: user.email,
-        from: 'carpoolpassreset@gmail.com',
+        from: 'administrator@tourneyrfd.com',
         subject: 'Your password has been changed',
         text: 'Hello,\n\n' +
           ' - This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
