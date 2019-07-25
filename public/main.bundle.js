@@ -226,7 +226,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_4__angular_router__["RouterModule"].forRoot(appRoutes),
                 __WEBPACK_IMPORTED_MODULE_20_angular2_flash_messages__["FlashMessagesModule"],
                 __WEBPACK_IMPORTED_MODULE_5__agm_core__["a" /* AgmCoreModule */].forRoot({
-                    apiKey: 'google map api key'
+                    apiKey: 'google map api'
                 }),
                 __WEBPACK_IMPORTED_MODULE_6_angular2_image_upload__["a" /* ImageUploadModule */].forRoot(),
                 __WEBPACK_IMPORTED_MODULE_7_ngx_bar_rating__["a" /* BarRatingModule */],
@@ -521,35 +521,43 @@ var AddtournamentComponent = /** @class */ (function () {
             link: this.link,
             address: this.address,
         };
-        if (!this.validateService.validateTournament(tournament)) {
-            this.flashMessages.show("Please fill in all fields", { cssClass: 'alert-danger', timeout: 3000 });
-            return false;
-        }
-        if (this.link.substring(0, 23) != "https://www.tabroom.com") {
-            this.flashMessages.show("Please use the Tabroom link", { cssClass: 'alert-danger', timeout: 3000 });
-            return false;
-        }
-        for (var i = 0; i < tournament.eventswithbids.length; i++) {
-            if (tournament.eventswithbids[i].value == "" || tournament.bidrounds[i].value == "") {
-                this.flashMessages.show("Please fill in Events with Bids and Bid Rounds or remove empty fields", { cssClass: 'alert-danger', timeout: 3000 });
+        this.dataService.getAllTournaments().subscribe(function (data) {
+            if (!_this.validateService.validateTournament(tournament)) {
+                _this.flashMessages.show("Please fill in all fields", { cssClass: 'alert-danger', timeout: 3000 });
                 return false;
             }
-        }
-        for (var i = 0; i < tournament.eventswithoutbids.length; i++) {
-            if (tournament.eventswithoutbids[i].value == "") {
-                this.flashMessages.show("Please fill in Events without Bids or remove empty fields", { cssClass: 'alert-danger', timeout: 3000 });
+            if (_this.link.substring(0, 23) != "https://www.tabroom.com") {
+                _this.flashMessages.show("Please use the Tabroom link", { cssClass: 'alert-danger', timeout: 3000 });
                 return false;
             }
-        }
-        this.dataService.addTournament(tournament).subscribe(function (data) {
-            if (data) {
-                _this.flashMessages.show("Successfully added tournament", { cssClass: 'alert-success', timeout: 3000 });
-                _this.router.navigate(['/dashboard']);
+            for (var i = 0; i < tournament.eventswithbids.length; i++) {
+                if (tournament.eventswithbids[i].value == "" || tournament.bidrounds[i].value == "") {
+                    _this.flashMessages.show("Please fill in Events with Bids and Bid Rounds or remove empty fields", { cssClass: 'alert-danger', timeout: 3000 });
+                    return false;
+                }
             }
-            else {
-                _this.flashMessages.show("Something went wrong", { cssClass: 'alert-danger', timeout: 3000 });
-                _this.router.navigate(['/addtournament']);
+            for (var i = 0; i < tournament.eventswithoutbids.length; i++) {
+                if (tournament.eventswithoutbids[i].value == "") {
+                    _this.flashMessages.show("Please fill in Events without Bids or remove empty fields", { cssClass: 'alert-danger', timeout: 3000 });
+                    return false;
+                }
             }
+            for (var i = 0; i < data.length; i++) {
+                if (tournament.name == data[i].name || tournament.link == data[i].link) {
+                    _this.flashMessages.show("This tournament already exists", { cssClass: 'alert-danger', timeout: 3000 });
+                    return false;
+                }
+            }
+            _this.dataService.addTournament(tournament).subscribe(function (data) {
+                if (data) {
+                    _this.flashMessages.show("Successfully added tournament", { cssClass: 'alert-success', timeout: 3000 });
+                    _this.router.navigate(['/dashboard']);
+                }
+                else {
+                    _this.flashMessages.show("Something went wrong", { cssClass: 'alert-danger', timeout: 3000 });
+                    _this.router.navigate(['/addtournament']);
+                }
+            });
         });
     };
     AddtournamentComponent.prototype.add = function () {
@@ -1111,7 +1119,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/footer/footer.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<footer class=\"page-footer font-small pt-4\">\n\n  <!-- Footer Links -->\n  <div class=\"container-fluid text-center text-md-left\">\n\n    <!-- Grid row -->\n    <div class=\"row\">\n\n      <!-- Grid column -->\n      <div class=\"col-md-6 mt-md-0 mt-3\">\n\n        <!-- Content -->\n        <h3 style=\"color:white;\">TourneyRFD</h3>\n        <h5 style = \"color:white\">Contact Us</h5>\n        <p style = \"color:white\">Email: kyin20@brophybroncos.org</p>\n        <p style = \"color:white\">Phone Number: (602) 737 9976</p>\n      </div>\n      <!-- Grid column -->\n\n      <br>\n      <br>\n      <!-- Grid column -->\n      <div class=\"col-md-6 mb-md-0 mb-6\">\n\n        <ul class=\"list-unstyled\">\n          <li>\n            <a [routerLink]=\"['/termsandconditions']\"><h4 style = \"color:white\">Terms and Conditions</h4></a>\n          </li>\n          <li>\n            <a [routerLink]=\"['/aboutus']\"><h4 style = \"color:white\">About Us</h4></a>\n          </li>\n\n        </ul>\n\n      </div>\n      <!-- Grid column -->\n\n\n\n    </div>\n    <!-- Grid row -->\n\n  </div>\n  <!-- Footer Links -->\n\n  <!-- Copyright -->\n  <div class=\"footer-copyright\" style = \"text-align: center\">© 2019 Copyright [Company Name]\n    <a href=\"https://mdbootstrap.com/education/bootstrap/\"> MDBootstrap.com</a>\n  </div>\n  <!-- Copyright -->\n"
+module.exports = "<footer class=\"page-footer font-small pt-4\">\n\n  <!-- Footer Links -->\n  <div class=\"container-fluid text-center text-md-left\">\n\n    <!-- Grid row -->\n    <div class=\"row\">\n\n      <!-- Grid column -->\n      <div class=\"col-md-6 mt-md-0 mt-3\">\n\n        <!-- Content -->\n        <h3 style=\"color:white;\">TourneyRFD</h3>\n        <h5 style = \"color:white\">Contact Us</h5>\n        <p style = \"color:white\">Email: <a href=\"mailto:administrator@tourneyrfd.com\" target=\"_top\" style = \"color:white\">administrator@tourneyrfd.com</a></p>\n        <p style = \"color:white\">Phone Number: (602) 737 9976</p>\n      </div>\n      <!-- Grid column -->\n\n      <br>\n      <br>\n      <!-- Grid column -->\n      <div class=\"col-md-6 mb-md-0 mb-6\">\n\n        <ul class=\"list-unstyled\">\n          <li>\n            <a [routerLink]=\"['/termsandconditions']\"><h4 style = \"color:white\">Terms and Conditions</h4></a>\n          </li>\n          <li>\n            <a [routerLink]=\"['/aboutus']\"><h4 style = \"color:white\">About Us</h4></a>\n          </li>\n\n        </ul>\n\n      </div>\n      <!-- Grid column -->\n\n\n\n    </div>\n    <!-- Grid row -->\n\n  </div>\n  <!-- Footer Links -->\n\n  <!-- Copyright -->\n  <div class=\"footer-copyright\" style = \"text-align: center\">© 2019 Copyright TourneyRFD\n  </div>\n  <!-- Copyright -->\n"
 
 /***/ }),
 
@@ -1172,7 +1180,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/forgot/forgot.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class='page-header'>Forgot</h2>\n<form (submit)='onForgotSubmit()'>\n  <div class='form-group'>\n    <label>Email</label>\n    <input type='text' class='form-control' [(ngModel)]='email' name='email'>\n  </div>\n  <input type='submit' class='btn btn-primary' value='Submit'>\n</form>\n"
+module.exports = "<h2 class='page-header'>Forgot</h2>\n<form (submit)='onForgotSubmit()'>\n  <div class='form-group'>\n    <label>Email</label>\n    <input type='text' class='form-control' [(ngModel)]='email' name='email'>\n  </div>\n  <input type='submit' class='btn btn-primary' value='Submit'>\n</form>\n<div class=\"modal\" id=\"myModal\" role=\"dialog\" >\n    <div class=\"modal-dialog\">\n      <!-- Modal content-->\n      <div class=\"modal-content\">\n        <div class=\"modal-body\">\n          <h3>Reset Email has been sent</h3>\n          <p>A link to reset your password has been sent to your email account</p>\n          <p>Please note: We use a third party email service, so the email may show up as spam.</p>\n        </div>\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\" [routerLink]=\"['/login']\">Ok</button>\n        </div>\n      </div>\n    </div>\n</div>\n\n<button id=\"openModalButton\" [hidden]=\"true\" data-toggle=\"modal\" data-target=\"#myModal\" data-backdrop=\"static\" data-keyboard=\"false\">Open Modal</button>\n"
 
 /***/ }),
 
@@ -1230,11 +1238,11 @@ var ForgotComponent = /** @class */ (function () {
                 if (user.email == Data[i].email) {
                     _this.authService.forgotUser(user).subscribe(function (data) {
                         if (data) {
-                            _this.flashMessage.show("An email has been sent to your account", {
-                                cssClass: "alert-success",
-                                timeout: 5000
-                            });
-                            _this.router.navigate(['/login']);
+                            // this.flashMessage.show("An email has been sent to your account",{
+                            //   cssClass: "alert-success",
+                            //   timeout:5000
+                            // });
+                            document.getElementById("openModalButton").click();
                         }
                     });
                     i = Data.length + 1;
@@ -1270,7 +1278,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".background {\n  position: relative;\n  width: 100%;\n  height: 300px;\n  max-height: 100%;\n  margin: 0 auto;\n  padding: 0;\n  background-size:100% 100%;\n  background-repeat: no-repeat;\n  background-color: #3aa9e7;\n}\n.jumbotron {\n  margin:0;\n  height: 259px;\n  width: 1140px;\n  background-color: #007fc2;\n  /* background-color:#3aa9e7; */\n  /* background-image: url(\"https://png.pngtree.com/thumb_back/fh260/back_pic/03/83/11/2157c84a65827a8.jpg\"); */\n  background-size: cover;\n}\nh1 {\n  text-align: center;\n  color:#EEEEEE;\n}\n.searchbar {\n  text-align:center;\n}\ninput{\n   width:70%;\n   margin-left: auto;\n   margin-right: auto;\n\n}\n:host {\n  display: block;\n}\n.open-close-container {\n\n  height: auto;\n  width:100%\n}\n", ""]);
+exports.push([module.i, ".background {\n  position: relative;\n  width: 100%;\n  height: 300px;\n  max-height: 100%;\n  margin: 0 auto;\n  padding: 0;\n  background-size:100% 100%;\n  background-repeat: no-repeat;\n  background-color: #3aa9e7;\n}\n.jumbotron {\n  margin:10px;\n  height: 20%;\n  width: 100%;\n  background-color: #007fc2;\n  /* background-color:#3aa9e7; */\n  /* background-image: url(\"https://png.pngtree.com/thumb_back/fh260/back_pic/03/83/11/2157c84a65827a8.jpg\"); */\n  background-size: cover;\n}\nh1 {\n  text-align: center;\n  color:#EEEEEE;\n}\n.searchbar {\n  text-align:center;\n}\ninput{\n   width:70%;\n   margin-left: auto;\n   margin-right: auto;\n\n}\n:host {\n  display: block;\n}\n.open-close-container {\n\n  height: auto;\n  width:100%\n}\ntd {\n  text-align: left;\n  text-overflow: clip;\n  vertical-align: text-top;\n  padding: 10px;\n}\ntable {\n  border: #d2d2d2;\n  border-style: inset;\n  border-width: thin;\n  padding: 10px;\n}\n", ""]);
 
 // exports
 
@@ -1283,7 +1291,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"jumbotron\">\n  <h1>TourneyRFD</h1>\n  <br>\n  <div class=\"searchbar\">\n  <input type=\"text\" [(ngModel)]=\"term\" name=\"term\" class=\"form-control\"  placeholder=\"Search\">\n  </div>\n</div>\n<h2>Tournaments</h2>\n  <div *ngFor=\"let docs of documents | filter:term\">\n    <ul class='list-group'>\n      <li class='list-group-item'>\n        <div class=\"col-xs-4\">\n        <a [routerLink]=\"['/tournament/', docs._id]\"><h4>{{docs.name}}</h4></a>\n         <!-- (click)=\"onLinkClick(docs._id)\" -->\n        </div>\n        <div class=\"col-xs-2\">\n          <b><h5>Tournament Dates</h5></b>\n          <b>Start Date: {{docs.startdate}}</b> <br>\n          <b>End Date: {{docs.enddate}}</b>\n        </div>\n        <div class=\"col-xs-2\">\n          <b><h5>Tournament Address</h5></b>\n          <b>{{docs.address}}</b>\n        </div>\n        <b><h5>Overall Rating</h5></b> <bar-rating [rate]=docs.overall [max]=\"5\" [readOnly]='true'></bar-rating>\n      </li>\n    </ul>\n</div>\n    <br><br>\n"
+module.exports = "\n<div class=\"jumbotron\">\n  <h1>TourneyRFD</h1>\n  <br>\n  <div class=\"searchbar\">\n  <input type=\"text\" [(ngModel)]=\"term\" name=\"term\" class=\"form-control\"  placeholder=\"Search\">\n  </div>\n</div>\n<h2>Tournaments</h2>\n  <div *ngFor=\"let docs of documents | filter:term\">\n      <table style=\"width:100%\">\n      <tr>\n        <td style = \"width: 30%\">\n        <a [routerLink]=\"['/tournament/', docs._id]\"><h4>{{docs.name}}</h4></a>\n        </td>\n        <td style = \"width: 20%\">\n          <b><h5>Tournament Dates</h5></b>\n          <b>Start Date: {{docs.startdate}}</b> <br>\n          <b>End Date: {{docs.enddate}}</b>\n        </td>\n        <td style = \"width: 25%\">\n          <b><h5>Tournament Address</h5></b>\n          <b>{{docs.address}}</b>\n        </td>\n        <td style = \"width: 25%\">\n        <b><h5>Overall Rating</h5></b> <bar-rating [rate]=docs.overall [max]=\"5\" [readOnly]='true'></bar-rating>\n        </td>\n      </tr>\n      </table>\n      <br><br>\n</div>\n    <br><br>\n"
 
 /***/ }),
 
@@ -1834,7 +1842,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/register/register.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h2 lass='page-header'>Register</h2>\n<form (submit)='onRegisterSubmit()'>\n\n\n\n  <div class = 'col-xs-6'>\n    <div class='form-group'>\n      <label>First Name</label>\n      <input type='text' [(ngModel)]='firstname' name='firstname' class=\"form-control\">\n    </div>\n  </div>\n\n  <div class = 'col-xs-6'>\n    <div class='form-group'>\n      <label>Last Name</label>\n      <input type='text' [(ngModel)]='lastname' name='lastname' class=\"form-control\">\n    </div>\n  </div>\n\n  <div class = 'col-xs-2'>\n  <div class='form-group'>\n    <label>Student or Coach</label><br>\n    <input type='radio' [(ngModel)]='role' name='student' value='Student' class=\"form-check\">   Student\n    <input type='radio' [(ngModel)]='role' name='coach' value='Coach' class=\"form-check\">   Coach\n  </div>\n  </div>\n  <div class = 'col-xs-10'>\n  <div class='form-group'>\n    <label>Affiliation</label><br>\n    <input type='text' [(ngModel)]='affiliation' name='affiliation' class=\"form-control\">\n  </div>\n  </div>\n  <div class = 'col-xs-7'>\n  <div class='form-group'>\n    <label>Email</label>\n    <input type= 'text' [(ngModel)]='email' name='email' class='form-control'>\n  </div>\n  </div>\n  <div class = 'col-xs-5'>\n  <div class='form-group'>\n    <label>Username</label>\n    <input type= 'text' [(ngModel)]='username' name='username' class='form-control'>\n  </div>\n  </div>\n  <div class = 'col-xs-12'>\n  <div class='form-group'>\n    <label>Password</label>\n    <input type= 'password' [(ngModel)]='password' name='password' class='form-control'>\n  </div>\n\n  <br>\n  <div class=\"checkbox\">\n    <label><input type=\"checkbox\" [(ngModel)]='agreement' name='agreement' value=\"\">I accept the <a [routerLink]=\"['/termsandconditions']\">Terms and Conditions</a></label>\n  </div>\n\n  </div>\n\n` <br>`\n  <input type='submit' class = 'btn btn-primary' value='Submit' >\n\n\n\n</form>\n\n<div class=\"modal\" id=\"myModal\" role=\"dialog\" >\n    <div class=\"modal-dialog\">\n      <!-- Modal content-->\n      <div class=\"modal-content\">\n        <div class=\"modal-body\">\n          <h3>Congratulations on making your account!</h3>\n          <p> A confirmation email has been sent to your email account with further instructions.</p>\n        </div>\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\" [routerLink]=\"['/login']\">Ok</button>\n        </div>\n      </div>\n    </div>\n</div>\n\n<button id=\"openModalButton\" [hidden]=\"true\" data-toggle=\"modal\" data-target=\"#myModal\">Open Modal</button>\n"
+module.exports = "<h2 lass='page-header'>Register</h2>\n<form (submit)='onRegisterSubmit()'>\n\n\n\n  <div class = 'col-xs-6'>\n    <div class='form-group'>\n      <label>First Name</label>\n      <input type='text' [(ngModel)]='firstname' name='firstname' class=\"form-control\">\n    </div>\n  </div>\n\n  <div class = 'col-xs-6'>\n    <div class='form-group'>\n      <label>Last Name</label>\n      <input type='text' [(ngModel)]='lastname' name='lastname' class=\"form-control\">\n    </div>\n  </div>\n\n  <div class = 'col-xs-2'>\n  <div class='form-group'>\n    <label>Student or Coach</label><br>\n    <input type='radio' [(ngModel)]='role' name='student' value='Student' class=\"form-check\">   Student\n    <input type='radio' [(ngModel)]='role' name='coach' value='Coach' class=\"form-check\">   Coach\n  </div>\n  </div>\n  <div class = 'col-xs-10'>\n  <div class='form-group'>\n    <label>Affiliation</label><br>\n    <input type='text' [(ngModel)]='affiliation' name='affiliation' class=\"form-control\">\n  </div>\n  </div>\n  <div class = 'col-xs-7'>\n  <div class='form-group'>\n    <label>Email</label>\n    <input type= 'text' [(ngModel)]='email' name='email' class='form-control'>\n  </div>\n  </div>\n  <div class = 'col-xs-5'>\n  <div class='form-group'>\n    <label>Username</label>\n    <input type= 'text' [(ngModel)]='username' name='username' class='form-control'>\n  </div>\n  </div>\n  <div class = 'col-xs-12'>\n  <div class='form-group'>\n    <label>Password</label>\n    <input type= 'password' [(ngModel)]='password' name='password' class='form-control'>\n  </div>\n\n  <br>\n  <div class=\"checkbox\">\n    <label><input type=\"checkbox\" [(ngModel)]='agreement' name='agreement' value=\"\">I accept the <a [routerLink]=\"['/termsandconditions']\">Terms and Conditions</a></label>\n  </div>\n\n  </div>\n\n` <br>`\n  <input type='submit' class = 'btn btn-primary' value='Submit' >\n\n\n\n</form>\n\n<div class=\"modal\" id=\"myModal\" role=\"dialog\" >\n    <div class=\"modal-dialog\">\n      <!-- Modal content-->\n      <div class=\"modal-content\">\n        <div class=\"modal-body\">\n          <h3>Congratulations on making your account!</h3>\n          <p> A confirmation email has been sent to your email account with further instructions.</p>\n          <p>Please note: We use a third party email service, so the confirmation email may show up as spam.</p>\n        </div>\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\" [routerLink]=\"['/login']\">Ok</button>\n        </div>\n      </div>\n    </div>\n</div>\n\n<button id=\"openModalButton\" [hidden]=\"true\" data-toggle=\"modal\" data-target=\"#myModal\" data-backdrop=\"static\" data-keyboard=\"false\">Open Modal</button>\n"
 
 /***/ }),
 
@@ -2467,52 +2475,61 @@ var TournamentComponent = /** @class */ (function () {
     };
     TournamentComponent.prototype.rateReview = function (id) {
         var _this = this;
-        this.authService.getProfile().subscribe(function (profile) {
-            _this.user = profile.user;
-            _this.username = profile.user.username;
-            _this.id = profile.user._id;
-            console.log(_this.id);
-            _this.dataService.getReview(id).subscribe(function (review) {
-                console.log(review[0].raters.length);
-                if (review[0].raters.length > 0) {
-                    for (var i = 0; i < review[0].raters.length; i++) {
-                        if (_this.id == review[0].raters[i]) {
-                            console.log(review[0].raters[i]);
-                            _this.flashMessage.show("You may only rate a review once", {
-                                cssClass: "alert-danger",
-                                timeout: 3000
-                            });
-                            return false;
-                        }
-                        else {
-                            _this.dataService.rateReview(id).subscribe(function (rating) {
-                                if (rating) {
-                                    console.log('review rated');
-                                    window.location.reload();
-                                }
-                                else {
-                                    console.log("something went wrongs");
-                                }
-                            });
+        if (this.authService.loggedIn()) {
+            this.authService.getProfile().subscribe(function (profile) {
+                _this.user = profile.user;
+                _this.username = profile.user.username;
+                _this.id = profile.user._id;
+                console.log(_this.id);
+                _this.dataService.getReview(id).subscribe(function (review) {
+                    console.log(review[0].raters.length);
+                    if (review[0].raters.length > 0) {
+                        for (var i = 0; i < review[0].raters.length; i++) {
+                            if (_this.id == review[0].raters[i]) {
+                                console.log(review[0].raters[i]);
+                                _this.flashMessage.show("You may only rate a review once", {
+                                    cssClass: "alert-danger",
+                                    timeout: 3000
+                                });
+                                return false;
+                            }
+                            else {
+                                _this.dataService.rateReview(id).subscribe(function (rating) {
+                                    if (rating) {
+                                        console.log('review rated');
+                                        window.location.reload();
+                                    }
+                                    else {
+                                        console.log("something went wrongs");
+                                    }
+                                });
+                            }
                         }
                     }
-                }
-                else {
-                    _this.dataService.rateReview(id).subscribe(function (rating) {
-                        if (rating) {
-                            console.log('review rated');
-                            window.location.reload();
-                        }
-                        else {
-                            console.log("something went wrongs");
-                        }
-                    });
-                }
+                    else {
+                        _this.dataService.rateReview(id).subscribe(function (rating) {
+                            if (rating) {
+                                console.log('review rated');
+                                window.location.reload();
+                            }
+                            else {
+                                console.log("something went wrongs");
+                            }
+                        });
+                    }
+                });
+            }, function (err) {
+                console.log(err);
+                return false;
             });
-        }, function (err) {
-            console.log(err);
-            return false;
-        });
+        }
+        else {
+            this.router.navigate(['/login']);
+            this.flashMessage.show("You must be logged in to rate a review", {
+                cssClass: "alert-danger",
+                timeout: 3000
+            });
+        }
     };
     TournamentComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({

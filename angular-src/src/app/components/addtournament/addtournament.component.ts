@@ -57,6 +57,7 @@ export class AddtournamentComponent implements OnInit {
       link: this.link,
       address: this.address,
       }
+      this.dataService.getAllTournaments().subscribe(data => {
       if(!this.validateService.validateTournament(tournament)){
         this.flashMessages.show("Please fill in all fields", {cssClass:'alert-danger', timeout:3000});
         return false;
@@ -77,6 +78,13 @@ export class AddtournamentComponent implements OnInit {
           return false
         }
       }
+      for (var i = 0; i < data.length; i++){
+        if (tournament.name == data[i].name || tournament.link == data[i].link){
+          this.flashMessages.show("This tournament already exists", {cssClass:'alert-danger', timeout:3000});
+          return false
+        }
+      }
+
       this.dataService.addTournament(tournament).subscribe(data => {
         if(data){
            this.flashMessages.show("Successfully added tournament", {cssClass:'alert-success', timeout:3000});
@@ -86,6 +94,7 @@ export class AddtournamentComponent implements OnInit {
            this.router.navigate(['/addtournament'])
         }
       });
+      })
     }
 
 

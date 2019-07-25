@@ -63,6 +63,7 @@ isDisabled = false;
     window.location.reload();
   }
   rateReview(id){
+    if (this.authService.loggedIn()){
     this.authService.getProfile().subscribe(profile => {
       this.user = profile.user;
       this.username = profile.user.username;
@@ -106,7 +107,13 @@ isDisabled = false;
       console.log(err);
       return false;
     });
-
+  } else {
+    this.router.navigate(['/login'])
+    this.flashMessage.show("You must be logged in to rate a review",{
+      cssClass: "alert-danger",
+      timeout:3000
+    });
+  }
 
   }
 

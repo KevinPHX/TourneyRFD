@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { ValidateService } from '../../services/validate.service';
 import {Data} from "../../Data";
+import {ModalModule} from "ngx-modal";
 
 @Component({
   selector: 'app-forgot',
@@ -43,11 +44,11 @@ Data:Data[];
         if (user.email == Data[i].email){
           this.authService.forgotUser(user).subscribe(data => {
             if(data){
-              this.flashMessage.show("An email has been sent to your account",{
-                cssClass: "alert-success",
-                timeout:5000
-              });
-              this.router.navigate(['/login'])
+              // this.flashMessage.show("An email has been sent to your account",{
+              //   cssClass: "alert-success",
+              //   timeout:5000
+              // });
+              document.getElementById("openModalButton").click();
             }
 
           });

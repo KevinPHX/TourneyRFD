@@ -8,23 +8,25 @@
 </div>
 <h2>Tournaments</h2>
   <div *ngFor="let docs of documents | filter:term">
-    <ul class='list-group'>
-      <li class='list-group-item'>
-        <div class="col-xs-4">
+      <table style="width:100%">
+      <tr>
+        <td style = "width: 30%">
         <a [routerLink]="['/tournament/', docs._id]"><h4>{{docs.name}}</h4></a>
-         <!-- (click)="onLinkClick(docs._id)" -->
-        </div>
-        <div class="col-xs-2">
+        </td>
+        <td style = "width: 20%">
           <b><h5>Tournament Dates</h5></b>
           <b>Start Date: {{docs.startdate}}</b> <br>
           <b>End Date: {{docs.enddate}}</b>
-        </div>
-        <div class="col-xs-2">
+        </td>
+        <td style = "width: 25%">
           <b><h5>Tournament Address</h5></b>
           <b>{{docs.address}}</b>
-        </div>
+        </td>
+        <td style = "width: 25%">
         <b><h5>Overall Rating</h5></b> <bar-rating [rate]=docs.overall [max]="5" [readOnly]='true'></bar-rating>
-      </li>
-    </ul>
+        </td>
+      </tr>
+      </table>
+      <br><br>
 </div>
     <br><br>
