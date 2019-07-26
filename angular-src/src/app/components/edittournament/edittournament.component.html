@@ -49,7 +49,17 @@
 
            <div class="form-group">
              <div class= "col-xs-12">
-             <input type="text" [(ngModel)]="bidrounds[in].value" name="name{{in}}" class="form-control" #name="ngModel" value = "bidrounds[in].value" required/>
+             <!-- <input type="text" [(ngModel)]="bidrounds[in].value" name="name{{in}}" class="form-control" #name="ngModel" value = "bidrounds[in].value" required/> -->
+             <select class="form-control"  [(ngModel)]="bidrounds[in].value" name="name{{in}}" class="form-control" #name="ngModel">
+               <option value="" >Choose One</option>
+               <option value="Finals">Finals</option>
+               <option value="Semifinals">Semifinals</option>
+               <option value="Quarter Finals">Quarter Finals</option>
+               <option value="Octafinals">Octafinals</option>
+               <option value="Double Octafinals">Double Octafinals</option>
+               <option value="Triple Octafinals">Triple Octafinals</option>
+               <option value="Preliminaries">Preliminaries</option>
+             </select>
              </div>
              <br />
            </div>
