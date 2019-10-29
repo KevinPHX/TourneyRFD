@@ -34,7 +34,7 @@
     "font-awesome": "^4.7.0",
     "get-json": "1.0.0",
     "mongojs": "^2.4.0",
-    "mongoose": "^4.10.8",
+    "mongoose": "^5.7.5",
     "ng2-search-filter": "^0.4.7",
     "ngx-bar-rating": "^1.1.0",
     "ngx-modal": "0.0.29",
