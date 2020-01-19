@@ -59,12 +59,12 @@ nev.configure({
     transportOptions: {
         service: 'Gmail',
         auth: {
-            user: 'kevin.tourneyrfd@gmail.com',
-            pass: 'tourneyrfd2020'
+            user: 'email',
+            pass: 'password'
         }
     },
     verifyMailOptions: {
-        from: 'Do Not Reply <administrator@tourneyrfd.com>',
+        from: 'Do Not Reply <email alias>',
         subject: 'Please confirm account',
         html: 'Click the following link to confirm your account:</p><p>${URL}</p>',
         text: 'Please confirm your account by clicking the following link: ${URL}'
@@ -443,13 +443,13 @@ router.post("/reportreview/:reviewid/:id", (req, res, next) => {
       var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'kevin.tourneyrfd@gmail.com',
-          pass: 'tourneyrfd2020'
+          user: 'email',
+          pass: 'password'
         }
       });
       var mailOptions = {
-        from: 'kevin.tourneyrfd@gmail.com',
-        to: "kyin20@brophybroncos.org",
+        from: 'email',
+        to: "personal email",
         subject: 'Reporting Review',
         text: newReport.reporterfirstname + " " + newReport.reporterlastname + " has reported " + review.firstname + " " + review.lastname + "'s review made on " + review.date + " for " + review.tournamentname + ". The report ratings: Overall" + review.overall + " Judging Pool: " + review.judgingpool + " Accomodations: " + review.accomodations + " Location: " + review.location + " Scheduling: " + review.scheduling + ". Content: " + review.content + ". Reason for reporting: " + newReport.reportcontent
 
@@ -626,14 +626,14 @@ console.log('step 1')
       var smtpTrans = nodemailer.createTransport({
          service: 'Gmail',
          auth: {
-          user: 'kevin.tourneyrfd@gmail.com',
+          user: 'email',
           pass: 'tourneyrfd2020'
         }
       });
       var mailOptions = {
 
         to: user.email,
-        from: 'administrator@tourneyrfd.com',
+        from: 'email alias',
         subject: 'TourneyRFD Password Reset',
         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
@@ -730,13 +730,13 @@ user.save(function(err) {
       var smtpTrans = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
-          user: 'kevin.tourneyrfd@gmail.com',
+          user: 'email',
           pass: 'tourneyrfd2020'
         }
       });
       var mailOptions = {
         to: user.email,
-        from: 'administrator@tourneyrfd.com',
+        from: 'email alias',
         subject: 'Your password has been changed',
         text: 'Hello,\n\n' +
           ' - This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
