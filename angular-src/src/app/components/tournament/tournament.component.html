@@ -3,11 +3,11 @@
       <h2 class='page-header'>{{docs.name}}</h2>
       <br>
       <div class="col-xs-3">
-      <h3>Overall:</h3> <bar-rating [rate]=docs.overall [max]="5" [readOnly]='true'></bar-rating>
-      <h4>Judging Pool:</h4> <bar-rating [rate]=docs.judgingpool [max]="5" [readOnly]='true'></bar-rating>
-      <h4>Accomodations:</h4> <bar-rating [rate]=docs.accomodations [max]="5" [readOnly]='true'></bar-rating>
-      <h4>Location:</h4> <bar-rating [rate]=docs.location [max]="5" [readOnly]='true'></bar-rating>
-      <h4>Scheduling:</h4> <bar-rating [rate]=docs.scheduling [max]="5" [readOnly]='true'></bar-rating><br>
+      <a class='link' [routerLink]="['/aboutus']" value = "About Us"><h3>Overall:</h3></a> <bar-rating [rate]=docs.overall [max]="5" [readOnly]='true'></bar-rating>
+      <a class='link' [routerLink]="['/aboutus']" value = "About Us"><h4>Judging Pool:</h4></a> <bar-rating [rate]=docs.judgingpool [max]="5" [readOnly]='true'></bar-rating>
+      <a class='link' [routerLink]="['/aboutus']" value = "About Us"><h4>Accomodations:</h4></a> <bar-rating [rate]=docs.accomodations [max]="5" [readOnly]='true'></bar-rating>
+      <a class='link' [routerLink]="['/aboutus']" value = "About Us"><h4>Location:</h4></a> <bar-rating [rate]=docs.location [max]="5" [readOnly]='true'></bar-rating>
+      <a class='link' [routerLink]="['/aboutus']" value = "About Us"><h4>Scheduling:</h4></a> <bar-rating [rate]=docs.scheduling [max]="5" [readOnly]='true'></bar-rating><br>
       <a class='link' [routerLink]="['/edittournament/', docs._id]" value = "Edit">Edit Tournament Info</a><br><br>
       </div>
       <div class ="col-xs-3">
@@ -67,6 +67,7 @@
     <h3 class='page-header'>Reviews</h3><br><br>
     <div *ngFor="let review of reviews">
       <div class = "col-xs-3">
+        <b>Overall: </b><bar-rating [rate]=review.overall [max]="5" [readOnly]='true'></bar-rating>
         <b>Judging Pool: </b><bar-rating [rate]=review.judgingpool [max]="5" [readOnly]='true'></bar-rating>
         <b>Accomodations: </b><bar-rating [rate]=review.accomodations [max]="5" [readOnly]='true'></bar-rating>
         <b>Location: </b><bar-rating [rate]=review.location [max]="5" [readOnly]='true'></bar-rating>

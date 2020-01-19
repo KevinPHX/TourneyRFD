@@ -23,6 +23,10 @@ const ReviewSchema = mongoose.Schema({
     type:Number,
     required: true
   },
+  overall: {
+    type:Number,
+    required: true
+  },
   date: {
     type:String,
     required: true

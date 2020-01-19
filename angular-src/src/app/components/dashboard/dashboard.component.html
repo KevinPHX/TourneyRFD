@@ -12,6 +12,7 @@
         </div>
 
         <div class = "col-xs-2">
+          <b>Overall: </b><bar-rating [rate]=docs.overall [max]="5" [readOnly]='true'></bar-rating>
           <b>Judging Pool: </b><bar-rating [rate]=docs.judgingpool [max]="5" [readOnly]='true'></bar-rating>
           <b>Accomodations: </b><bar-rating [rate]=docs.accomodations [max]="5" [readOnly]='true'></bar-rating>
           <b>Location: </b><bar-rating [rate]=docs.location [max]="5" [readOnly]='true'></bar-rating>

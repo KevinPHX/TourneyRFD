@@ -18,6 +18,7 @@ export class EditreviewComponent implements OnInit {
   accomodations: Integer;
   location: Integer;
   scheduling:Integer;
+  overall:Integer;
   content:String;
   constructor(private dataService: DataService, private authService:AuthService,
     private validateService:ValidateService,
@@ -36,6 +37,7 @@ export class EditreviewComponent implements OnInit {
       this.accomodations = review[0].accomodations;
       this.location = review[0].location;
       this.scheduling= review[0].scheduling;
+      this.overall= review[0].overall;
       this.content= review[0].content;
       this.tournamentname = review[0].tournamentname
     },
@@ -55,11 +57,12 @@ export class EditreviewComponent implements OnInit {
       accomodations: this.accomodations,
       location: this.location,
       scheduling: this.scheduling,
+      overall: this.overall,
       content: this.content
     };
 
     console.log(review.judgingpool)
-    if (review.judgingpool == undefined || review.accomodations == undefined || review.location == undefined || review.scheduling == undefined || review.content == ''){
+    if (review.judgingpool == undefined || review.accomodations == undefined || review.location == undefined || review.scheduling == undefined || review.overall == undefined || review.content == ''){
       this.flashMessage.show("Please fill in all fields", {cssClass:'alert-danger', timeout:3000});
       return false
     }

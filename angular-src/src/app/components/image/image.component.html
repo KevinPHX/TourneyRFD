@@ -1,6 +1,6 @@
 <div *ngFor="let docs of documents">
 <h2 >{{docs.name}} Photo Gallery</h2>
-<image-upload url="http://localhost:3000/users/photo/{{docs._id}}" [style]="customStyle" [disabled]="isDisabled" (click)="showMessage()"></image-upload>
+<image-upload url="http://localhost:3000/users/photo/{{docs._id}}" [style]="customStyle" [disabled]="isDisabled" (click)="showMessage()" dropBoxMessage="Drop your images here! Do not refresh the page"></image-upload>
 <section id="photos">
 <div *ngFor="let photo of photos; let i=index">
 <img [src]="photo.imageData" class="img-thumbnail" (click)="myModal.open()">

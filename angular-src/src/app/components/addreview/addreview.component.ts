@@ -15,6 +15,7 @@ export class AddreviewComponent implements OnInit {
   accomodations: Integer;
   location: Integer;
   scheduling:Integer;
+  overall:Integer;
   content:String;
   constructor(private validateService: ValidateService, private flashMessages:FlashMessagesService, private authService:AuthService, private router:Router, private dataService:DataService) { }
 
@@ -35,13 +36,14 @@ export class AddreviewComponent implements OnInit {
       accomodations: this.accomodations,
       location: this.location,
       scheduling: this.scheduling,
+      overall: this.overall,
       content: this.content,
     }
     this.href = this.router.url;
     console.log(this.href)
     this.id = this.href.substring(11);
     console.log(this.id);
-    if(review.judgingpool == undefined || review.accomodations == undefined || review.location == undefined || review.scheduling == undefined || review.content == undefined || review.content == "" ){
+    if(review.judgingpool == undefined || review.accomodations == undefined || review.location == undefined || review.scheduling == undefined || review.overall == undefined || review.content == undefined || review.content == "" ){
       this.flashMessages.show("Please fill in all fields", {cssClass:'alert-danger', timeout:3000});
       return false
     }

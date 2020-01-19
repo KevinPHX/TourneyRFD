@@ -17,6 +17,7 @@ var ReportSchema = new mongoose.Schema({
   accomodations: Number,
   location: Number,
   scheduling: Number,
+  overall: Number,
   content: String,
   reviewerid: String,
   revieweremail: String,

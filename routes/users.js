@@ -59,12 +59,12 @@ nev.configure({
     transportOptions: {
         service: 'Gmail',
         auth: {
-            user: 'email address',
-            pass: 'email password'
+            user: 'kevin.tourneyrfd@gmail.com',
+            pass: 'tourneyrfd2020'
         }
     },
     verifyMailOptions: {
-        from: 'Do Not Reply <email alias>',
+        from: 'Do Not Reply <administrator@tourneyrfd.com>',
         subject: 'Please confirm account',
         html: 'Click the following link to confirm your account:</p><p>${URL}</p>',
         text: 'Please confirm your account by clicking the following link: ${URL}'
@@ -166,7 +166,7 @@ router.post('/addtournament', (req, res, next) => {
       axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
         params: {
             address: Address,
-            key: "geocode api"
+            key: "AIzaSyAm1tkJQOZCC33-0w_PkblDN_3Yykqkng4"
         }
       })
       .then(function(response){
@@ -226,7 +226,7 @@ router.post('/edittournament/:id', (req, res, next) => {
       axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
         params: {
             address: Address,
-            key: "geocode api"
+            key: "AIzaSyAm1tkJQOZCC33-0w_PkblDN_3Yykqkng4"
         }
       })
       .then(function(response){
@@ -286,6 +286,7 @@ router.post('/addreview/:tournamentid/:id', (req, res, next) => {
         accomodations: req.body.accomodations,
         location: req.body.location,
         scheduling: req.body.scheduling,
+        overall: req.body.overall,
         date: "" + month + "/" + date.getDate() + "/" + date.getFullYear(),
         tournament: req.params.tournamentid,
         tournamentname: tournament.name,
@@ -322,6 +323,7 @@ router.post('/editreview/:reviewid/:id', (req, res, next) => {
         accomodations: req.body.accomodations,
         location: req.body.location,
         scheduling: req.body.scheduling,
+        overall: req.body.overall,
         date: "" + month + "/" + date.getDate() + "/" + date.getFullYear(),
         role: user.role,
         firstname: user.firstname,
@@ -348,13 +350,14 @@ router.post('/averagereviews/:tournamentid', (req, res, next) => {
     accomodations += reviews[i].accomodations
     location += reviews[i].location
     scheduling += reviews[i].scheduling
+    overall += reviews[i].overall
   }
   if (i > 0) {
     judgingpool = judgingpool/i
     accomodations = accomodations/i
     location = location/i
     scheduling = scheduling/i
-    overall = (scheduling+location+accomodations+judgingpool)/4
+    overall = overall/i
   }
   db.collection('tournaments').update({_id: ObjectID(req.params.tournamentid)},
       {$set: {judgingpool: judgingpool, accomodations: accomodations, location: location, scheduling: scheduling, overall: overall}})
@@ -417,6 +420,7 @@ router.post("/reportreview/:reviewid/:id", (req, res, next) => {
         accomodations: review.accomodations,
         location: review.location,
         scheduling: review.scheduling,
+        overall: review.overall,
         content: review.content,
         reviewerid: review.userid,
         revieweremail: review.email,
@@ -439,15 +443,15 @@ router.post("/reportreview/:reviewid/:id", (req, res, next) => {
       var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'email address',
-          pass: 'email password'
+          user: 'kevin.tourneyrfd@gmail.com',
+          pass: 'tourneyrfd2020'
         }
       });
       var mailOptions = {
-        from: 'email address',
-        to: "email address",
+        from: 'kevin.tourneyrfd@gmail.com',
+        to: "kyin20@brophybroncos.org",
         subject: 'Reporting Review',
-        text: newReport.reporterfirstname + " " + newReport.reporterlastname + " has reported " + review.firstname + " " + review.lastname + "'s review made on " + review.date + " for " + review.tournamentname + ". The report ratings: Judging Pool: " + review.judgingpool + " Accomodations: " + review.accomodations + " Location: " + review.location + " Scheduling: " + review.scheduling + ". Content: " + review.content + ". Reason for reporting: " + newReport.reportcontent
+        text: newReport.reporterfirstname + " " + newReport.reporterlastname + " has reported " + review.firstname + " " + review.lastname + "'s review made on " + review.date + " for " + review.tournamentname + ". The report ratings: Overall" + review.overall + " Judging Pool: " + review.judgingpool + " Accomodations: " + review.accomodations + " Location: " + review.location + " Scheduling: " + review.scheduling + ". Content: " + review.content + ". Reason for reporting: " + newReport.reportcontent
 
       };
 
@@ -622,14 +626,14 @@ console.log('step 1')
       var smtpTrans = nodemailer.createTransport({
          service: 'Gmail',
          auth: {
-          user: 'email address',
-          pass: 'email password'
+          user: 'kevin.tourneyrfd@gmail.com',
+          pass: 'tourneyrfd2020'
         }
       });
       var mailOptions = {
 
         to: user.email,
-        from: 'email alias',
+        from: 'administrator@tourneyrfd.com',
         subject: 'TourneyRFD Password Reset',
         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
@@ -726,13 +730,13 @@ user.save(function(err) {
       var smtpTrans = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
-          user: 'email address',
-          pass: 'email password'
+          user: 'kevin.tourneyrfd@gmail.com',
+          pass: 'tourneyrfd2020'
         }
       });
       var mailOptions = {
         to: user.email,
-        from: 'email alias',
+        from: 'administrator@tourneyrfd.com',
         subject: 'Your password has been changed',
         text: 'Hello,\n\n' +
           ' - This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
