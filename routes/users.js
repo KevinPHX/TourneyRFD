@@ -166,7 +166,7 @@ router.post('/addtournament', (req, res, next) => {
       axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
         params: {
             address: Address,
-            key: "AIzaSyAm1tkJQOZCC33-0w_PkblDN_3Yykqkng4"
+            key: "geocode key"
         }
       })
       .then(function(response){
@@ -226,7 +226,7 @@ router.post('/edittournament/:id', (req, res, next) => {
       axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
         params: {
             address: Address,
-            key: "AIzaSyAm1tkJQOZCC33-0w_PkblDN_3Yykqkng4"
+            key: "geocode key"
         }
       })
       .then(function(response){
