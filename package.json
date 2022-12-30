@@ -43,7 +43,7 @@
     "sshpk": "^1.13.2",
     "stringstream": "0.0.6",
     "tough-cookie": "^2.3.3",
-    "webpack": "^3.0.0"
+    "webpack": "^5.75.0"
   },
   "author": "Kevin Yin",
   "license": "ISC",
